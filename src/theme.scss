@@ -1,0 +1,15 @@
+@import "~@angular/material/_theming.scss";
+// @include mat-core();
+// Define a custom theme
+// $app-primary: mat-palette($mat-green, 600);
+// $app-accent: mat-palette($mat-pink, 600);
+// $app-warn: mat-palette($mat-indigo, 600);
+
+// $app-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
+
+// @include angular-material-theme($app-theme);
+// Define custom typography
+$app-typography: mat-typography-config(
+  $font-family: ' "Nunito Sans", "Helvetica Neue", sans-serif'
+);
+@include angular-material-typography($app-typography);
