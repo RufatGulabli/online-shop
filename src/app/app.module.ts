@@ -8,11 +8,12 @@ import { FormsModule } from "@angular/forms";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
-import { AdminProductsComponent } from './admin-products/admin-products.component';
-import { LoginComponent } from './login/login.component';
-import { ProductsComponent } from './products/products.component';
-import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AdminOrdersComponent } from "./admin-orders/admin-orders.component";
+import { AdminProductsComponent } from "./admin-products/admin-products.component";
+import { LoginComponent } from "./login/login.component";
+import { ProductsComponent } from "./products/products.component";
+import { MyOrdersComponent } from "./my-orders/my-orders.component";
+import { LoginService } from "./services/login.service";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
     FormsModule,
     NgbModule
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
