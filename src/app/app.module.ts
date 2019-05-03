@@ -4,7 +4,7 @@ import { MaterialComponentsModule } from "./material-components.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { RoutingsComponent, AppRoutingModule } from "./app-routing.module";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -14,6 +14,9 @@ import { LoginComponent } from "./login/login.component";
 import { ProductsComponent } from "./products/products.component";
 import { MyOrdersComponent } from "./my-orders/my-orders.component";
 import { LoginService } from "./services/login.service";
+import { AuthGuard } from "./services/auth-guard.guard";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { TokenInterceptor } from "./services/token-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -33,9 +36,15 @@ import { LoginService } from "./services/login.service";
     MaterialComponentsModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule
+    ReactiveFormsModule,
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [LoginService],
+  providers: [
+    LoginService,
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

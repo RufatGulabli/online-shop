@@ -1,3 +1,4 @@
+import { AuthGuard } from "./services/auth-guard.guard";
 import { MyOrdersComponent } from "./my-orders/my-orders.component";
 import { AdminOrdersComponent } from "./admin-orders/admin-orders.component";
 import { AdminProductsComponent } from "./admin-products/admin-products.component";
@@ -12,10 +13,14 @@ import { LoginComponent } from "./login/login.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
-  { path: "shopping-cart", component: ShoppingCartComponent },
+  {
+    path: "shopping-cart",
+    component: ShoppingCartComponent,
+    canActivate: [AuthGuard]
+  },
   { path: "products", component: ProductsComponent },
   { path: "login", component: LoginComponent },
-  { path: "my/orders", component: MyOrdersComponent },
+  { path: "my/orders", component: MyOrdersComponent, canActivate: [AuthGuard] },
   { path: "admin/products", component: AdminProductsComponent },
   { path: "admin/orders", component: AdminOrdersComponent },
   { path: "**", component: PageNotFoundComponent }

@@ -1,8 +1,32 @@
 import { Injectable } from "@angular/core";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class LoginService {
-  constructor() {}
+  private url = "http://localhost:3000/login";
+  constructor(private httpClient: HttpClient) {}
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem("token");
+  }
+
+  login(credentials: any): Observable<any> {
+    console.log(JSON.stringify(credentials));
+    return this.httpClient
+      .post(this.url, credentials)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  private errorHandler(error: HttpErrorResponse) {
+    if (error.status === 404) {
+      return throwError(new Error("Page Not Found"));
+    } else if (error.status === 400) {
+      return throwError(new Error("Bad Input"));
+    }
+    return throwError(new Error("Internal Server Error"));
+  }
 }
