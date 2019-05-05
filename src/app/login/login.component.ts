@@ -1,6 +1,10 @@
 import { LoginService } from "./../services/login.service";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { resource } from "selenium-webdriver/http";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { trigger, transition } from "@angular/animations";
 
 @Component({
   selector: "app-login",
@@ -15,8 +19,9 @@ export class LoginComponent implements OnInit {
       Validators.minLength(8)
     ])
   });
+  private error: Error;
 
-  constructor(public loginService: LoginService) {}
+  constructor(public loginService: LoginService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -44,8 +49,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loginService.login("").subscribe(result => {
-      console.log(result);
-    });
+    this.loginService.login(this.form.value).subscribe(
+      res => {
+        localStorage.setItem("Token", res);
+        this.router.navigate(["/"]);
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.error = err;
+      }
+    );
   }
 }

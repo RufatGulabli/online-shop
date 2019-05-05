@@ -23,10 +23,10 @@ export class LoginService {
 
   private errorHandler(error: HttpErrorResponse) {
     if (error.status === 404) {
-      return throwError(new Error("Page Not Found"));
+      return throwError(error);
     } else if (error.status === 400) {
-      return throwError(new Error("Bad Input"));
+      return throwError(error);
     }
-    return throwError(new Error("Internal Server Error"));
+    return throwError(error);
   }
 }
