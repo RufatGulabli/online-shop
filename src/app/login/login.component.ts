@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
 import { resource } from "selenium-webdriver/http";
 import { HttpErrorResponse } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { trigger, transition } from "@angular/animations";
 
 @Component({
@@ -21,7 +21,11 @@ export class LoginComponent implements OnInit {
   });
   private error: Error;
 
-  constructor(public loginService: LoginService, private router: Router) {}
+  constructor(
+    public loginService: LoginService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {}
 
@@ -52,10 +56,12 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.form.value).subscribe(
       res => {
         localStorage.setItem("Token", res);
-        this.router.navigate(["/"]);
+        const returnUrl = this.activatedRoute.snapshot.queryParamMap.get(
+          "returnUrl"
+        );
+        if (res) this.router.navigate([returnUrl || "/"]);
       },
       (err: HttpErrorResponse) => {
-        console.log(err);
         this.error = err;
       }
     );

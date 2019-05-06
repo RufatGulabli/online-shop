@@ -13,6 +13,7 @@ import { Observable } from "rxjs";
 export class TokenInterceptor implements HttpInterceptor {
   constructor() {}
 
+  // This method is used to add Token to all HTTP requests automatically
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler

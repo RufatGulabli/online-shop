@@ -1,3 +1,4 @@
+import { AdminGuard } from "./services/admin.guard";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { MaterialComponentsModule } from "./material-components.module";
@@ -14,9 +15,11 @@ import { LoginComponent } from "./login/login.component";
 import { ProductsComponent } from "./products/products.component";
 import { MyOrdersComponent } from "./my-orders/my-orders.component";
 import { LoginService } from "./services/login.service";
-import { AuthGuard } from "./services/auth-guard.guard";
+import { AuthGuard } from "./services/auth.guard";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { TokenInterceptor } from "./services/token-interceptor.service";
+import { JwtModule } from "@auth0/angular-jwt";
+import { NoAccessComponent } from "./no-access/no-access.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { TokenInterceptor } from "./services/token-interceptor.service";
     AdminProductsComponent,
     LoginComponent,
     ProductsComponent,
-    MyOrdersComponent
+    MyOrdersComponent,
+    NoAccessComponent
   ],
   imports: [
     BrowserModule,
@@ -38,11 +42,13 @@ import { TokenInterceptor } from "./services/token-interceptor.service";
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    JwtModule,
     HttpClientModule
   ],
   providers: [
     LoginService,
     AuthGuard,
+    AdminGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
