@@ -9,8 +9,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { AdminOrdersComponent } from "./admin-orders/admin-orders.component";
-import { AdminProductsComponent } from "./admin-products/admin-products.component";
+import { AdminOrdersComponent } from "./admin-components/admin-orders/admin-orders.component";
+import { AdminProductsComponent } from "./admin-components/admin-products/admin-products.component";
 import { LoginComponent } from "./login/login.component";
 import { ProductsComponent } from "./products/products.component";
 import { MyOrdersComponent } from "./my-orders/my-orders.component";
@@ -20,6 +20,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { TokenInterceptor } from "./services/token-interceptor.service";
 import { JwtModule } from "@auth0/angular-jwt";
 import { NoAccessComponent } from "./no-access/no-access.component";
+import { ProductFormComponent } from "./admin-components/product-form/product-form.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { NoAccessComponent } from "./no-access/no-access.component";
     LoginComponent,
     ProductsComponent,
     MyOrdersComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
