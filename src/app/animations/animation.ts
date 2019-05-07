@@ -9,15 +9,23 @@ const heartBeat = animation(
         transform: "scale(1)"
       }),
       style({
-        offset: 0.15,
+        offset: 0.1,
         transform: "scale(1.3)"
       }),
       style({
-        offset: 0.3,
+        offset: 0.2,
         transform: "scale(1)"
       }),
       style({
-        offset: 0.45,
+        offset: 0.3,
+        transform: "scale(1.3)"
+      }),
+      style({
+        offset: 0.4,
+        transform: "scale(1)"
+      }),
+      style({
+        offset: 0.5,
         transform: "scale(1.3)"
       }),
       style({
@@ -25,11 +33,19 @@ const heartBeat = animation(
         transform: "scale(1)"
       }),
       style({
-        offset: 0.75,
+        offset: 0.7,
         transform: "scale(1.3)"
       }),
       style({
-        offset: 1,
+        offset: 0.8,
+        transform: "scale(1)"
+      }),
+      style({
+        offset: 0.9,
+        transform: "scale(1.3)"
+      }),
+      style({
+        offset: 1.0,
         transform: "scale(1)"
       })
     ])

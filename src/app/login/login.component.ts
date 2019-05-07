@@ -1,10 +1,8 @@
 import { LoginService } from "./../services/login.service";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
-import { resource } from "selenium-webdriver/http";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
-import { trigger, transition } from "@angular/animations";
 
 @Component({
   selector: "app-login",
@@ -19,7 +17,7 @@ export class LoginComponent implements OnInit {
       Validators.minLength(8)
     ])
   });
-  private error: Error;
+  private error;
 
   constructor(
     public loginService: LoginService,
@@ -62,7 +60,8 @@ export class LoginComponent implements OnInit {
         if (res) this.router.navigate([returnUrl || "/"]);
       },
       (err: HttpErrorResponse) => {
-        this.error = err;
+        console.log(err);
+        this.error = err.error.body;
       }
     );
   }

@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <form class="" [formGroup]="form" #f="ngForm" (ngSubmit)="onSubmit()">
         <div *ngIf="error" class="alert alert-danger">
-          {{ error.error.message }}
+          {{ error || "Internal Server Error" }}
         </div>
         <div class="form-group">
           <mat-form-field

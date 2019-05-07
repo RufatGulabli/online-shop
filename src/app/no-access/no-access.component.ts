@@ -23,6 +23,6 @@ export class NoAccessComponent implements OnInit {
     myObservable.subscribe(seconds => (this.elapsedTime = 3 - seconds));
     setTimeout(() => {
       this.router.navigate(["/"]);
-    }, 3000);
+    }, 4000);
   }
 }

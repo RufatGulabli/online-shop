@@ -1,3 +1,4 @@
+import { CategoryService } from "./services/category.service";
 import { AdminGuard } from "./services/admin.guard";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
@@ -49,6 +50,7 @@ import { ProductFormComponent } from "./admin-components/product-form/product-fo
   ],
   providers: [
     LoginService,
+    CategoryService,
     AuthGuard,
     AdminGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
