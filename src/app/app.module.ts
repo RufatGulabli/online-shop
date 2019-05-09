@@ -22,6 +22,7 @@ import { TokenInterceptor } from "./services/token-interceptor.service";
 import { JwtModule } from "@auth0/angular-jwt";
 import { NoAccessComponent } from "./no-access/no-access.component";
 import { ProductFormComponent } from "./admin-components/product-form/product-form.component";
+import { CustomFormsModule } from "ng2-validation";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ProductFormComponent } from "./admin-components/product-form/product-fo
     ReactiveFormsModule,
     NgbModule,
     JwtModule,
-    HttpClientModule
+    HttpClientModule,
+    CustomFormsModule
   ],
   providers: [
     LoginService,

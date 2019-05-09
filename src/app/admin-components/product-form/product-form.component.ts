@@ -3,6 +3,8 @@ import { ProductService } from "../../services/product.service";
 import { CategoryService } from "./../../services/category.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
+import { Product } from "./../../model/product";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-product-form",
@@ -12,17 +14,24 @@ import { Component, OnInit } from "@angular/core";
 export class ProductFormComponent implements OnInit {
   productForm = new FormGroup({
     title: new FormControl("", [Validators.required]),
-    price: new FormControl("", [Validators.required]),
+    price: new FormControl("", [
+      Validators.required,
+      Validators.min(0),
+      Validators.pattern(/^\d{1,5}(\.\d{1,2})?$/)
+    ]),
     category: new FormControl("", [Validators.required]),
     imageUrl: new FormControl("", [Validators.required])
   });
 
   private categories: [];
-  private message;
+  private message: {};
+  private error: {};
+  private submitted: boolean = false;
 
   constructor(
     private categoryService: CategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -31,15 +40,24 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    this.productService.save(this.productForm.value).subscribe(
+  onSubmit(f) {
+    const product = new Product(
+      this.productForm.value.title,
+      this.productForm.value.price,
+      this.productForm.value.category.id,
+      this.productForm.value.imageUrl
+    );
+    console.log(product);
+    this.productService.save(product).subscribe(
       res => {
-        console.log(res);
-        this.message = res;
+        this.submitted = true;
+        this.message = "Succesfully Saved";
+        setTimeout(() => {
+          this.router.navigate(["/admin/products"]);
+        }, 3000);
       },
       (err: HttpErrorResponse) => {
-        console.log(err.message);
-        this.message = err.message;
+        this.error = err.error.body;
       }
     );
   }

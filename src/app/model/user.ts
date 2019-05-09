@@ -1,16 +1,24 @@
 export class User {
   constructor(
-    private _id: number,
-    private _email: string,
-    private _fullName: string,
-    private _isAdmin: boolean
+    private id: number,
+    private email: string,
+    private fullName: string,
+    private isAdmin: number
   ) {}
 
-  get isAdmin() {
-    return this._isAdmin;
+  get IsAdmin() {
+    return this.isAdmin;
   }
 
-  get fullname() {
-    return this._fullName;
+  get Fullname() {
+    return this.fullName;
+  }
+
+  get Id() {
+    return this.id;
+  }
+
+  get Email() {
+    return this.email;
   }
 }

@@ -6,6 +6,7 @@ import {
   Router
 } from "@angular/router";
 import { LoginService } from "./login.service";
+import { User } from "../model/user";
 
 @Injectable({
   providedIn: "root"
@@ -17,7 +18,7 @@ export class AdminGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const isAdmin = !!this.loginService.getCredentials().isAdmin;
+    const isAdmin = this.loginService.getCredentials()["isAdmin"];
     if (isAdmin) {
       return true;
     }

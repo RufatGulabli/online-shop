@@ -25,10 +25,8 @@ export class LoginService {
       return null;
     }
     const helper = new JwtHelperService();
-    const a = helper.decodeToken(token);
-    return new JwtHelperService().decodeToken(
-      localStorage.getItem("Token")
-    ) as User;
+    const user = helper.decodeToken(token) as User;
+    return user;
   }
 
   login(credentials: any): Observable<any> {

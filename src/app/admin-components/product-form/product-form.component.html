@@ -1,10 +1,18 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-12 col-sm-12 shadow-lg rounded m-3 p-3">
-      <form [formGroup]="productForm" #f="ngForm" (ngSubmit)="onSubmit()">
-        <div class="col-md-6 col-sm-12 input-container">
+  <div class="row shadow-lg rounded m-3 p-3">
+    <div class="col-md-6 col-sm-12 p-5">
+      <form
+        novalidate
+        [(formGroup)]="productForm"
+        #f="ngForm"
+        (ngSubmit)="onSubmit(f)"
+      >
+        <div class="input-container">
           <div *ngIf="message" class="alert alert-success">
             {{ message }}
+          </div>
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
           </div>
           <mat-form-field>
             <input
@@ -13,7 +21,8 @@
               placeholder="Title"
               formControlName="title"
             />
-            <mat-error *ngIf="this.productForm.get('title').invalid"
+            <mat-error
+              *ngIf="this.productForm.get('title')?.hasError('required')"
               >Title is required</mat-error
             >
           </mat-form-field>
@@ -25,8 +34,14 @@
               placeholder="Price"
               formControlName="price"
             />
-            <mat-error *ngIf="this.productForm.get('price').invalid"
+            <mat-error *ngIf="productForm.get('price')?.hasError('required')"
               >Price is required</mat-error
+            >
+            <mat-error *ngIf="productForm.get('price')?.hasError('min')"
+              >Price can't be less than 0</mat-error
+            >
+            <mat-error *ngIf="productForm.get('price')?.hasError('pattern')"
+              >Invalid number</mat-error
             >
           </mat-form-field>
           <mat-form-field>
@@ -37,7 +52,8 @@
                 cat.description
               }}</mat-option>
             </mat-select>
-            <mat-error *ngIf="this.productForm.get('category').invalid"
+            <mat-error
+              *ngIf="this.productForm.get('category')?.hasError('required')"
               >Category is required</mat-error
             >
           </mat-form-field>
@@ -47,14 +63,19 @@
               type="text"
               placeholder="Image URL"
               formControlName="imageUrl"
+              url
             />
-            <mat-error *ngIf="this.productForm.get('imageUrl').invalid"
+            <mat-error
+              *ngIf="this.productForm.get('imageUrl')?.hasError('required')"
               >Image URL is required</mat-error
             >
+            <mat-error *ngIf="this.productForm.get('imageUrl')?.hasError('url')"
+              >Incorrect URL</mat-error
+            >
           </mat-form-field>
-          <div class="d-flex justify-content-around m-3">
+          <div class="d-flex justify-content-between p-2">
             <button
-              [disabled]="f.invalid"
+              [disabled]="f.invalid || submitted"
               type="submit"
               mat-raised-button
               color="primary"
@@ -65,6 +86,23 @@
           </div>
         </div>
       </form>
+    </div>
+    <div class="col-md-6 col-sm-12 p-2">
+      <mat-card>
+        <img
+          mat-card-image
+          [src]="productForm.get('imageUrl').value"
+          alt="Product Image"
+        />
+        <mat-card-header>
+          <mat-card-title class="p-1">{{
+            productForm.get("title").value
+          }}</mat-card-title>
+          <mat-card-subtitle class="p-1">{{
+            productForm.get("price").value | currency: USD:code
+          }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
     </div>
   </div>
 </div>
