@@ -40,7 +40,7 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  onSubmit(f) {
+  onSubmit() {
     const product = new Product(
       this.productForm.value.title,
       this.productForm.value.price,

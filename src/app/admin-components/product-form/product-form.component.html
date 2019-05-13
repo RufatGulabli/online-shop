@@ -5,7 +5,7 @@
         novalidate
         [(formGroup)]="productForm"
         #f="ngForm"
-        (ngSubmit)="onSubmit(f)"
+        (ngSubmit)="onSubmit()"
       >
         <div class="input-container">
           <div *ngIf="message" class="alert alert-success">
