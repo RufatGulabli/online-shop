@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
+import { Product } from "../model/product";
 
 @Injectable({
   providedIn: "root"
@@ -13,8 +14,12 @@ export class ProductService {
 
   save(product) {
     return this.http
-      .post(this.url, product)
+      .post<Product>(this.url, product)
       .pipe(catchError(this.errorHandler));
+  }
+
+  getAll() {
+    return this.http.get<Product>(this.url).pipe(catchError(this.errorHandler));
   }
 
   private errorHandler(error: HttpErrorResponse) {

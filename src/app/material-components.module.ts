@@ -2,14 +2,14 @@ import { NgModule } from "@angular/core";
 import {
   MatButtonModule,
   MatInputModule,
-  MatIcon,
   MatIconModule,
-  MatBadge,
   MatBadgeModule,
   MatFormFieldModule,
   MatSelectModule,
   MatCardModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 } from "@angular/material";
 
 @NgModule({
@@ -22,7 +22,9 @@ import {
     MatFormFieldModule,
     MatSelectModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class MaterialComponentsModule {}

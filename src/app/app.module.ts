@@ -2,7 +2,6 @@ import { CategoryService } from "./services/category.service";
 import { AdminGuard } from "./services/admin.guard";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { MaterialComponentsModule } from "./material-components.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { RoutingsComponent, AppRoutingModule } from "./app-routing.module";
@@ -23,6 +22,8 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { NoAccessComponent } from "./no-access/no-access.component";
 import { ProductFormComponent } from "./admin-components/product-form/product-form.component";
 import { CustomFormsModule } from "ng2-validation";
+import { MaterialComponentsModule } from "./material-components.module";
+import { ProductsTableComponent } from "./admin-components/products-table/products-table.component";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CustomFormsModule } from "ng2-validation";
     ProductsComponent,
     MyOrdersComponent,
     NoAccessComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductsTableComponent
   ],
   imports: [
     BrowserModule,
