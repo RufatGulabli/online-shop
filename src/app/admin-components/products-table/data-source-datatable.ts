@@ -8,8 +8,8 @@ import { OnInit } from "@angular/core";
 
 export class ProductTableDataSource extends DataSource<Product>
   implements OnInit {
-  products: Product[];
-  errorMessage: string = null; // shouldn't be here
+  products: Product[] = [];
+
   constructor(
     private productService: ProductService,
     private paginator: MatPaginator,
@@ -19,14 +19,9 @@ export class ProductTableDataSource extends DataSource<Product>
   }
 
   ngOnInit() {
-    this.productService.getAll().subscribe(
-      res => {
-        this.products = res["body"];
-      },
-      err => {
-        this.errorMessage = err["body"];
-      }
-    );
+    this.productService.getAll().subscribe(res => {
+      this.products = res["body"];
+    });
   }
 
   connect(): Observable<Product[]> {
@@ -36,7 +31,7 @@ export class ProductTableDataSource extends DataSource<Product>
       this.sort.sortChange
     ];
 
-    this.paginator.length = this.products.length;
+    this.paginator.length = this.products["length"];
 
     return merge(...dataMutations).pipe(
       map(() => {
@@ -44,6 +39,8 @@ export class ProductTableDataSource extends DataSource<Product>
       })
     );
   }
+
+  disconnect() {}
 
   private getSortedData(data: Product[]) {
     if (!this.sort.active || this.sort.direction === "") {
@@ -69,8 +66,6 @@ export class ProductTableDataSource extends DataSource<Product>
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
-
-  disconnect() {}
 }
 
 function compare(a, b, isAsc) {

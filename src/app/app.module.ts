@@ -1,3 +1,4 @@
+import { ProductService } from "src/app/services/product.service";
 import { CategoryService } from "./services/category.service";
 import { AdminGuard } from "./services/admin.guard";
 import { NgModule } from "@angular/core";
@@ -55,6 +56,7 @@ import { ProductsTableComponent } from "./admin-components/products-table/produc
   providers: [
     LoginService,
     CategoryService,
+    ProductService,
     AuthGuard,
     AdminGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

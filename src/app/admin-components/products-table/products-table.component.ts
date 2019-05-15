@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator, MatSort } from "@angular/material";
 import { ProductTableDataSource } from "./data-source-datatable";
+import { ProductService } from "src/app/services/product.service";
 
 @Component({
   selector: "products-table",
@@ -12,9 +13,18 @@ export class ProductsTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ["Title", "Price", "Category", " "];
+
   dataSource: ProductTableDataSource;
 
-  constructor() {}
+  errorMessage: string = null;
 
-  ngOnInit() {}
+  constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    this.dataSource = new ProductTableDataSource(
+      this.productService,
+      this.paginator,
+      this.sort
+    );
+  }
 }

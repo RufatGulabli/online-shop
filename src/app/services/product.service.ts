@@ -19,7 +19,7 @@ export class ProductService {
   }
 
   getAll() {
-    return this.http.get<Product>(this.url).pipe(catchError(this.errorHandler));
+    return this.http.get(this.url).pipe(catchError(this.errorHandler));
   }
 
   private errorHandler(error: HttpErrorResponse) {
