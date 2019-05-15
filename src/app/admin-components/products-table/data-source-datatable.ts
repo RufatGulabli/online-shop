@@ -2,7 +2,7 @@ import { DataSource } from "@angular/cdk/table";
 import { Product } from "src/app/model/product";
 import { ProductService } from "src/app/services/product.service";
 import { MatPaginator, MatSort } from "@angular/material";
-import { Observable, of as observableOf, merge } from "rxjs";
+import { Observable, of, merge } from "rxjs";
 import { map } from "rxjs/operators";
 import { OnInit } from "@angular/core";
 
@@ -20,13 +20,14 @@ export class ProductTableDataSource extends DataSource<Product>
 
   ngOnInit() {
     this.productService.getAll().subscribe(res => {
+      console.log(res);
       this.products = res["body"];
     });
   }
 
   connect(): Observable<Product[]> {
     const dataMutations = [
-      observableOf(this.products),
+      of(this.products),
       this.paginator.page,
       this.sort.sortChange
     ];

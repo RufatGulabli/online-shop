@@ -14,17 +14,15 @@ export class ProductsTableComponent implements OnInit {
 
   displayedColumns: string[] = ["Title", "Price", "Category", " "];
 
-  dataSource: ProductTableDataSource;
+  dataSource = new ProductTableDataSource(
+    this.productService,
+    this.paginator,
+    this.sort
+  );
 
   errorMessage: string = null;
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit() {
-    this.dataSource = new ProductTableDataSource(
-      this.productService,
-      this.paginator,
-      this.sort
-    );
-  }
+  ngOnInit() {}
 }
