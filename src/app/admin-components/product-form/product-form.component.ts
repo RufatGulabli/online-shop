@@ -41,13 +41,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const product = new Product(
-      this.productForm.value.title,
-      this.productForm.value.price,
-      this.productForm.value.category.id,
-      this.productForm.value.imageUrl
-    );
-    console.log(product);
+    const product = {
+      title: this.productForm.value.title,
+      price: this.productForm.value.price,
+      category: this.productForm.value.category.id,
+      imageUrl: this.productForm.value.imageUrl
+    };
     this.productService.save(product).subscribe(
       res => {
         this.submitted = true;

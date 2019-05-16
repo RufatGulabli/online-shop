@@ -24,7 +24,12 @@ import { NoAccessComponent } from "./no-access/no-access.component";
 import { ProductFormComponent } from "./admin-components/product-form/product-form.component";
 import { CustomFormsModule } from "ng2-validation";
 import { MaterialComponentsModule } from "./material-components.module";
-import { ProductsTableComponent } from "./admin-components/products-table/products-table.component";
+import { ProductTableComponent } from "./admin-components/product-table/product-table.component";
+import {
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
+} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -39,7 +44,7 @@ import { ProductsTableComponent } from "./admin-components/products-table/produc
     MyOrdersComponent,
     NoAccessComponent,
     ProductFormComponent,
-    ProductsTableComponent
+    ProductTableComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError } from "rxjs/operators";
-import { throwError } from "rxjs";
+import { throwError, Observable } from "rxjs";
 import { Product } from "../model/product";
 
 @Injectable({
@@ -19,7 +19,9 @@ export class ProductService {
   }
 
   getAll() {
-    return this.http.get(this.url).pipe(catchError(this.errorHandler));
+    return this.http
+      .get<Product[]>(this.url)
+      .pipe(catchError(this.errorHandler));
   }
 
   private errorHandler(error: HttpErrorResponse) {
