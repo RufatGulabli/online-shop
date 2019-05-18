@@ -1,6 +1,10 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams
+} from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import { throwError, Observable } from "rxjs";
 import { Product } from "../model/product";
 
@@ -18,10 +22,28 @@ export class ProductService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getAll() {
+  getAll(
+    sortColumn: string = "id",
+    sortOrder: string = "asc",
+    pageSize: number = 2,
+    pageNumber: number = 0
+  ): Observable<Product[]> {
     return this.http
-      .get<Product[]>(this.url)
-      .pipe(catchError(this.errorHandler));
+      .get<Product[]>(this.url, {
+        params: new HttpParams()
+          .set("sortColumn", sortColumn)
+          .set("sortOrder", sortOrder)
+          .set("pageSize", pageSize.toString())
+          .set("pageNumber", pageNumber.toString())
+      })
+      .pipe(
+        map(res => res),
+        catchError(this.errorHandler)
+      );
+  }
+
+  getCount() {
+    return this.http.get(this.url.concat("/count"));
   }
 
   private errorHandler(error: HttpErrorResponse) {

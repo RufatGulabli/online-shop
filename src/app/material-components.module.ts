@@ -9,7 +9,8 @@ import {
   MatCardModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
 
 @NgModule({
@@ -24,7 +25,8 @@ import {
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialComponentsModule {}
