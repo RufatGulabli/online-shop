@@ -2,3 +2,13 @@
   width: 95%;
   margin: 10px auto;
 }
+
+.mat-form-field {
+  font-size: 16px;
+  width: 100%;
+}
+
+.button-box {
+  margin: 0;
+  padding-right: 0;
+}

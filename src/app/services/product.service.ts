@@ -26,7 +26,8 @@ export class ProductService {
     sortColumn: string = "id",
     sortOrder: string = "asc",
     pageSize: number = 2,
-    pageNumber: number = 0
+    pageNumber: number = 0,
+    filter: string = ""
   ): Observable<Product[]> {
     return this.http
       .get<Product[]>(this.url, {
@@ -35,11 +36,16 @@ export class ProductService {
           .set("sortOrder", sortOrder)
           .set("pageSize", pageSize.toString())
           .set("pageNumber", pageNumber.toString())
+          .set("filter", filter)
       })
       .pipe(
         map(res => res),
         catchError(this.errorHandler)
       );
+  }
+
+  remove(id) {
+    return this.http.delete(this.url, id).pipe(catchError(this.errorHandler));
   }
 
   getCount() {

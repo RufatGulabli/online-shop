@@ -28,12 +28,13 @@ export class ProductTableDataSource extends DataSource<Product> {
     sortColumn: string = "id",
     sortOrder: string = "asc",
     pageSize: number = 2,
-    pageNumber: number = 1
+    pageNumber: number = 1,
+    filter: string = ""
   ) {
     // spinner will get true value while loading the data from backend
     this.loadingSubject.next(true);
     this.productService
-      .getAll(sortColumn, sortOrder, pageSize, pageNumber + 1)
+      .getAll(sortColumn, sortOrder, pageSize, pageNumber + 1, filter)
       .pipe(
         // in case of error,  an Observable of empty array will be returned
         catchError(() => of([])),
