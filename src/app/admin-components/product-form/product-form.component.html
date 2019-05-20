@@ -81,7 +81,9 @@
             >
               Save
             </button>
-            <button mat-raised-button color="warn">Cancel</button>
+            <button mat-raised-button color="warn" (click)="onCancel()">
+              Cancel
+            </button>
           </div>
         </div>
       </form>
@@ -92,6 +94,7 @@
           mat-card-image
           [src]="productForm.get('imageUrl').value"
           alt="Product Image"
+          class="p-2"
         />
         <mat-card-header>
           <mat-card-title class="p-1">{{

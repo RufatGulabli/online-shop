@@ -4,7 +4,7 @@ import { CategoryService } from "./../../services/category.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { Product } from "./../../model/product";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-product-form",
@@ -31,13 +31,25 @@ export class ProductFormComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private activatedRouter: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe(res => {
       this.categories = res;
     });
+    let productId = this.activatedRouter.snapshot.paramMap.get("id");
+    if (productId) {
+      this.productService.getById(productId).subscribe((res: Product) => {
+        if (!res) {
+          this.error = "Something went wrong";
+        }
+        this.productForm.get("title").setValue(res.title);
+        this.productForm.get("price").setValue(res.price);
+        this.productForm.get("imageUrl").setValue(res.imageurl);
+      });
+    }
   }
 
   onSubmit() {
@@ -59,5 +71,9 @@ export class ProductFormComponent implements OnInit {
         this.error = err.error.body;
       }
     );
+  }
+
+  onCancel() {
+    this.router.navigate(["admin/products"]);
   }
 }

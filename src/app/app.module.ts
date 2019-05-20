@@ -24,11 +24,7 @@ import { ProductFormComponent } from "./admin-components/product-form/product-fo
 import { CustomFormsModule } from "ng2-validation";
 import { MaterialComponentsModule } from "./material-components.module";
 import { ProductTableComponent } from "./admin-components/product-table/product-table.component";
-import {
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule
-} from "@angular/material";
+import { DeleteProductDialogComponent } from "./admin-components/product-table/delete-product-dialog/delete-product-dialog.component";
 
 @NgModule({
   declarations: [
@@ -42,7 +38,8 @@ import {
     MyOrdersComponent,
     NoAccessComponent,
     ProductFormComponent,
-    ProductTableComponent
+    ProductTableComponent,
+    DeleteProductDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +61,7 @@ import {
     AdminGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteProductDialogComponent]
 })
 export class AppModule {}

@@ -18,7 +18,7 @@ export class ProductService {
 
   save(product) {
     return this.http
-      .post<Product>(this.url, product)
+      .post(this.url, product)
       .pipe(catchError(this.errorHandler));
   }
 
@@ -44,8 +44,16 @@ export class ProductService {
       );
   }
 
+  getById(id): Observable<Product> {
+    return this.http
+      .get<Product>(this.url.concat("/" + id))
+      .pipe(catchError(this.errorHandler));
+  }
+
   remove(id) {
-    return this.http.delete(this.url, id).pipe(catchError(this.errorHandler));
+    return this.http
+      .delete(this.url.concat("/" + id))
+      .pipe(catchError(this.errorHandler));
   }
 
   getCount() {

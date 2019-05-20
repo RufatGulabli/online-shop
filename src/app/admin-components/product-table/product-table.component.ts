@@ -1,4 +1,3 @@
-import { Product } from "src/app/model/product";
 import {
   AfterViewInit,
   Component,
@@ -6,11 +5,18 @@ import {
   OnInit,
   ElementRef
 } from "@angular/core";
-import { MatPaginator, MatSort } from "@angular/material";
+import {
+  MatPaginator,
+  MatSort,
+  MatDialog,
+  MatDialogConfig
+} from "@angular/material";
 import { ProductTableDataSource } from "./product-table-datasource";
 import { ProductService } from "src/app/services/product.service";
 import { merge, fromEvent } from "rxjs";
 import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
+import { DeleteProductDialogComponent } from "./delete-product-dialog/delete-product-dialog.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "product-table",
@@ -26,7 +32,11 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild("input") input: ElementRef;
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private matDialog: MatDialog,
+    private router: Router
+  ) {
     this.productService.getCount().subscribe(res => {
       this.length = +res;
     });
@@ -68,9 +78,31 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
     this.loadProductsAsPerThePagination();
   }
 
-  delete(id) {
-    this.productService.remove(id).subscribe(result => {
-      console.log(result);
+  delete(product) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.maxWidth = "350px";
+    dialogConfig.height = "200px";
+    dialogConfig.data = {
+      title: product["title"]
+    };
+    let dialogRef = this.matDialog.open(
+      DeleteProductDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.productService.remove(product["id"]).subscribe(res => {
+          this.loadProductsAsPerThePagination();
+          this.length--;
+        });
+      } else {
+        return;
+      }
     });
+  }
+
+  update(id) {
+    this.router.navigate(["admin/products/", id]);
   }
 }

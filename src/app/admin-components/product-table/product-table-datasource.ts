@@ -42,6 +42,8 @@ export class ProductTableDataSource extends DataSource<Product> {
         // the data returned from backend
         finalize(() => this.loadingSubject.next(false))
       )
-      .subscribe(products => this.data.next(products));
+      .subscribe(products => {
+        this.data.next(products);
+      });
   }
 }
