@@ -64,7 +64,7 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   }
 
   loadProductsAsPerThePagination() {
-    this.dataSource.loadData(
+    this.length = this.dataSource.loadData(
       this.sort.active.toLowerCase(),
       this.sort.direction,
       this.paginator.pageSize,
