@@ -50,6 +50,10 @@ export class ProductService {
       .pipe(catchError(this.errorHandler));
   }
 
+  update(product) {
+    return this.http.put(this.url, product).pipe(catchError(this.errorHandler));
+  }
+
   remove(id) {
     return this.http
       .delete(this.url.concat("/" + id))

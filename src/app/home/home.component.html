@@ -1,3 +1,21 @@
-<p>
-  home works!
-</p>
+<div class="container">
+  <div class="row">
+    <mat-card
+      *ngFor="let prod of products"
+      class="example-card m-3 justify-content-center"
+    >
+      <img mat-card-image [src]="prod.imageurl" alt="Photo of a Shiba Inu" />
+      <mat-card-content>
+        <mat-card-title>{{ prod.title }}</mat-card-title>
+        <br />
+        <mat-card-subtitle>{{
+          prod.price | currency: USD:code
+        }}</mat-card-subtitle>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

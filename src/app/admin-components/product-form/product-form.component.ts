@@ -23,6 +23,7 @@ export class ProductFormComponent implements OnInit {
     imageUrl: new FormControl("", [Validators.required])
   });
 
+  private productId: string;
   private categories: [];
   private message: {};
   private error: {};
@@ -33,47 +34,70 @@ export class ProductFormComponent implements OnInit {
     private productService: ProductService,
     private router: Router,
     private activatedRouter: ActivatedRoute
-  ) {}
-
-  ngOnInit() {
-    this.categoryService.getCategories().subscribe(res => {
+  ) {
+    this.categoryService.getAll().subscribe(res => {
       this.categories = res;
     });
-    let productId = this.activatedRouter.snapshot.paramMap.get("id");
-    if (productId) {
-      this.productService.getById(productId).subscribe((res: Product) => {
-        if (!res) {
-          this.error = "Something went wrong";
+    this.productId = this.activatedRouter.snapshot.paramMap.get("id");
+  }
+
+  ngOnInit() {
+    if (this.productId) {
+      this.productService.getById(this.productId).subscribe(
+        (res: Product) => {
+          if (res["length"] === 0) {
+            this.error = `Product with ID=${this.productId} does not exist.`;
+            return;
+          }
+          this.productForm.get("title").setValue(res[0].title);
+          this.productForm.get("price").setValue(res[0].price);
+          this.productForm.get("imageUrl").setValue(res[0].imageurl);
+        },
+        err => {
+          this.error = "Incorrect Product ID";
         }
-        this.productForm.get("title").setValue(res.title);
-        this.productForm.get("price").setValue(res.price);
-        this.productForm.get("imageUrl").setValue(res.imageurl);
-      });
+      );
     }
   }
 
   onSubmit() {
     const product = {
+      id: this.productId,
       title: this.productForm.value.title,
       price: this.productForm.value.price,
       category: this.productForm.value.category.id,
       imageUrl: this.productForm.value.imageUrl
     };
-    this.productService.save(product).subscribe(
-      res => {
-        this.submitted = true;
-        this.message = "Succesfully Saved";
-        setTimeout(() => {
-          this.router.navigate(["/admin/products"]);
-        }, 3000);
-      },
-      (err: HttpErrorResponse) => {
-        this.error = err.error.body;
-      }
-    );
+    if (this.productId) {
+      this.productService.update(product).subscribe(
+        res => {
+          this.successFinish("updated");
+        },
+        (err: HttpErrorResponse) => {
+          this.error = err.error.body;
+        }
+      );
+    } else {
+      this.productService.save(product).subscribe(
+        res => {
+          this.successFinish("saved");
+        },
+        (err: HttpErrorResponse) => {
+          this.error = err.error.body;
+        }
+      );
+    }
   }
 
   onCancel() {
     this.router.navigate(["admin/products"]);
+  }
+
+  private successFinish(message: string) {
+    this.message = `Succesfully ${message}`;
+    this.submitted = true;
+    setTimeout(() => {
+      this.router.navigate(["/admin/products"]);
+    }, 1000);
   }
 }

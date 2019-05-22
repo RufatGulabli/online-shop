@@ -11,7 +11,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
-  getCategories() {
+  getAll() {
     return this.http.get<[]>(this.url).pipe(catchError(this.errorHandler));
   }
 

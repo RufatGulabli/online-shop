@@ -61,7 +61,13 @@
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let row">
-            <button mat-icon-button color="accent" (click)="update(row.id)">
+            <button
+              mat-icon-button
+              color="accent"
+              matTooltip="Edit Product"
+              matTooltipPosition="above"
+              (click)="update(row.id)"
+            >
               <mat-icon>edit</mat-icon>
             </button>
           </td>
