@@ -8,6 +8,7 @@ export class ProductTableDataSource extends DataSource<Product> {
   private data = new BehaviorSubject<Product[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable(); // this is for spinner
+  public dataLength: number = 0;
 
   constructor(private productService: ProductService) {
     super();
@@ -30,7 +31,7 @@ export class ProductTableDataSource extends DataSource<Product> {
     pageSize: number = 2,
     pageNumber: number = 1,
     filter: string = ""
-  ): number {
+  ) {
     // spinner will get true value while loading the data from backend
     this.loadingSubject.next(true);
     this.productService
@@ -44,7 +45,8 @@ export class ProductTableDataSource extends DataSource<Product> {
       )
       .subscribe(products => {
         this.data.next(products);
+        this.dataLength = products.length;
+        console.log(this.dataLength);
       });
-    return this.data.value.length;
   }
 }

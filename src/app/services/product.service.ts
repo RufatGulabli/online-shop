@@ -50,6 +50,12 @@ export class ProductService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getByCategory(id: number): Observable<Product[]> {
+    return this.http
+      .get<Product[]>(this.url.concat("/category/").concat(id.toString()))
+      .pipe(catchError(this.errorHandler));
+  }
+
   update(product) {
     return this.http.put(this.url, product).pipe(catchError(this.errorHandler));
   }

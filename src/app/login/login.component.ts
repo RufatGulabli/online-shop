@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
         if (res) this.router.navigate([returnUrl || "/"]);
       },
       (err: HttpErrorResponse) => {
-        console.log(err);
         this.error = err.error.body;
       }
     );

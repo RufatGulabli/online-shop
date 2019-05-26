@@ -57,14 +57,22 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
           this.loadProductsAsPerThePagination();
         })
       )
-      .subscribe();
+      .subscribe(() => {
+        this.paginator.length =
+          this.dataSource.dataLength / this.paginator.pageSize > 1
+            ? this.length
+            : 1;
+        console.log("dataSource.dataLength", this.dataSource.dataLength);
+        console.log("paginator.pageSize", this.paginator.pageSize);
+        console.log("length", this.paginator.pageSize);
+      });
     merge(this.sort.sortChange, this.paginator.page).subscribe(() => {
       this.loadProductsAsPerThePagination();
     });
   }
 
   loadProductsAsPerThePagination() {
-    this.length = this.dataSource.loadData(
+    this.dataSource.loadData(
       this.sort.active.toLowerCase(),
       this.sort.direction,
       this.paginator.pageSize,
