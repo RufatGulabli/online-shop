@@ -14,7 +14,7 @@ import { Product } from "../model/product";
 export class ProductService {
   private url = "http://localhost:3000/product";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   save(product) {
     return this.http
@@ -23,7 +23,7 @@ export class ProductService {
   }
 
   getAll(
-    sortColumn: string = "id",
+    sortColumn: string = "title",
     sortOrder: string = "asc",
     pageSize: number = 2,
     pageNumber: number = 0,
@@ -50,9 +50,13 @@ export class ProductService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getByCategory(id: number): Observable<Product[]> {
+  getByCategory(id: number, pageSize: number, pageNumber: number): Observable<Product[]> {
     return this.http
-      .get<Product[]>(this.url.concat("/category/").concat(id.toString()))
+      .get<Product[]>(this.url.concat("/category/").concat(id.toString()), {
+        params: new HttpParams()
+          .set("pageSize", pageSize.toString())
+          .set("pageNumber", pageNumber.toString())
+      })
       .pipe(catchError(this.errorHandler));
   }
 
@@ -66,8 +70,16 @@ export class ProductService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getCount() {
-    return this.http.get(this.url.concat("/count"));
+  getCount(category: number) {
+    if (category) {
+      return this.http.get<number>(this.url.concat("/getCountByCategory/".concat(category.toString())));
+    } else {
+      return this.http.get<number>(this.url.concat("/count"));
+    }
+  }
+
+  getCountByFilter(filter) {
+    return this.http.get<number>(this.url.concat("/getCount/ByFilter/".concat(filter)));
   }
 
   private errorHandler(error: HttpErrorResponse) {

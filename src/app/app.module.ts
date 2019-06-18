@@ -25,6 +25,7 @@ import { CustomFormsModule } from "ng2-validation";
 import { MaterialComponentsModule } from "./material-components.module";
 import { ProductTableComponent } from "./admin-components/product-table/product-table.component";
 import { DeleteProductDialogComponent } from "./admin-components/product-table/delete-product-dialog/delete-product-dialog.component";
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { DeleteProductDialogComponent } from "./admin-components/product-table/d
     NoAccessComponent,
     ProductFormComponent,
     ProductTableComponent,
-    DeleteProductDialogComponent
+    DeleteProductDialogComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,7 @@ import { DeleteProductDialogComponent } from "./admin-components/product-table/d
     NgbModule,
     JwtModule,
     HttpClientModule,
-    CustomFormsModule
+    CustomFormsModule,
   ],
   providers: [
     LoginService,
@@ -59,9 +61,10 @@ import { DeleteProductDialogComponent } from "./admin-components/product-table/d
     ProductService,
     AuthGuard,
     AdminGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
+
   bootstrap: [AppComponent],
   entryComponents: [DeleteProductDialogComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,79 +1,38 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="sideNavMode" [opened]="sideNavOpenToggleButton">
     <div>
-      <button
-        *ngIf="sideNavOpenToggleButton"
-        mat-icon-button
-        (click)="sideNavOpenToggleButton = !sideNavOpenToggleButton"
-      >
+      <button *ngIf="sideNavOpenToggleButton" mat-icon-button style="margin-top: 12px;"
+        (click)="this.sideNavOpenToggleButton = !this.sideNavOpenToggleButton">
         <mat-icon>menu</mat-icon>
       </button>
     </div>
     <div>
       <mat-action-list>
         <a mat-list-item routerLink="/">All</a>
-        <a
-          mat-list-item
-          *ngFor="let cat of categories"
-          routerLink="/"
-          [queryParams]="{ category: cat.id }"
-          >{{ cat.description }}</a
-        >
+        <a mat-list-item *ngFor="let cat of categories" routerLink="/"
+          [queryParams]="{ category: cat.id }">{{ cat.description }}</a>
       </mat-action-list>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="d-flex justify-content-between align-items-center">
-      <button
-        *ngIf="!sideNavOpenToggleButton"
-        mat-icon-button
-        (click)="sideNavOpenToggleButton = !sideNavOpenToggleButton"
-        class="m-2"
-      >
+      <button *ngIf="!sideNavOpenToggleButton" mat-icon-button
+        (click)="sideNavOpenToggleButton = !sideNavOpenToggleButton" class="m-2">
         <mat-icon>menu</mat-icon>
       </button>
       <mat-form-field>
         <input type="text" matInput placeholder="Search..." #input />
-        <button
-          mat-button
-          matSuffix
-          mat-icon-button
-          (click)="clearInput()"
-          *ngIf="input.value"
-        >
+        <button mat-button matSuffix mat-icon-button (click)="clearInput()" *ngIf="input.value">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
     </div>
     <div>
-      <div
-        class="cards-container"
-        [class.justify-content-center]="!sideNavOpenToggleButton"
-        [style.grid-template-columns]="
-          sideNavOpenToggleButton ? 'auto auto auto' : 'auto auto auto auto'
-        "
-      >
-        <mat-card class="product-card" *ngFor="let prod of products">
-          <img mat-card-image [src]="prod?.imageurl" alt="Product" />
-          <mat-card-content>
-            <mat-card-title>{{ prod.title }}</mat-card-title>
-            <br />
-            <mat-card-subtitle>{{
-              prod.price | currency: USD:code
-            }}</mat-card-subtitle>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-          </mat-card-actions>
-        </mat-card>
+      <div id="1" [class.cards-container]="!sideNavOpenToggleButton" [class.iconClicked]="sideNavOpenToggleButton">
+        <product-card *ngFor="let prod of products" [product]="prod"></product-card>
       </div>
       <div>
-        <mat-paginator
-          [length]="100"
-          [pageSize]="10"
-          [pageSizeOptions]="[5, 10, 25, 100]"
-        >
+        <mat-paginator [length]="length" [pageSize]="paginator.pageSize" [pageIndex]="0">
         </mat-paginator>
       </div>
     </div>

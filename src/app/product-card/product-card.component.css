@@ -1,0 +1,26 @@
+* { 
+    box-sizing: border-box;
+}
+
+.product-card {
+    margin: 5px;
+}
+
+img {
+    min-height: 250px;
+    max-height: 250px;
+    height: 250px;
+    min-width: 370px;
+    max-width: 370px;
+    padding: 5px;
+}
+
+mat-card {
+    box-shadow: 0px 2px 10px -1px rgba(0, 0, 0, 0.2),
+      0px 1px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+mat-card-title {
+    font-size: 16px;
+    height: 40px;
+}

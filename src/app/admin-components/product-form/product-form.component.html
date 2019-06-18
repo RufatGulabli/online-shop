@@ -1,12 +1,7 @@
 <div class="container">
-  <div class="row shadow-lg rounded m-3 p-3">
-    <div class="col-md-6 col-sm-12 p-5">
-      <form
-        novalidate
-        [(formGroup)]="productForm"
-        #f="ngForm"
-        (ngSubmit)="onSubmit()"
-      >
+  <div class="row shadow-lg rounded">
+    <div class="col-md-7 col-sm-12 p-5">
+      <form novalidate [(formGroup)]="productForm" #f="ngForm" (ngSubmit)="onSubmit()">
         <div class="input-container">
           <div *ngIf="message" class="alert alert-success">
             {{ message }}
@@ -15,34 +10,15 @@
             {{ error }}
           </div>
           <mat-form-field>
-            <input
-              matInput
-              type="text"
-              placeholder="Title"
-              formControlName="title"
-            />
-            <mat-error
-              *ngIf="this.productForm.get('title')?.hasError('required')"
-              >Title is required</mat-error
-            >
+            <input matInput type="text" placeholder="Title" formControlName="title" />
+            <mat-error *ngIf="this.productForm.get('title')?.hasError('required')">Title is required</mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-icon matPrefix>attach_money</mat-icon>
-            <input
-              matInput
-              type="number"
-              placeholder="Price"
-              formControlName="price"
-            />
-            <mat-error *ngIf="productForm.get('price')?.hasError('required')"
-              >Price is required</mat-error
-            >
-            <mat-error *ngIf="productForm.get('price')?.hasError('min')"
-              >Price can't be less than 0</mat-error
-            >
-            <mat-error *ngIf="productForm.get('price')?.hasError('pattern')"
-              >Invalid number</mat-error
-            >
+            <input matInput type="number" placeholder="Price" formControlName="price" />
+            <mat-error *ngIf="productForm.get('price')?.hasError('required')">Price is required</mat-error>
+            <mat-error *ngIf="productForm.get('price')?.hasError('min')">Price can't be less than 0</mat-error>
+            <mat-error *ngIf="productForm.get('price')?.hasError('pattern')">Invalid number</mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Category</mat-label>
@@ -51,34 +27,15 @@
                 cat.description
               }}</mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="this.productForm.get('category')?.hasError('required')"
-              >Category is required</mat-error
-            >
+            <mat-error *ngIf="this.productForm.get('category')?.hasError('required')">Category is required</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input
-              matInput
-              type="text"
-              placeholder="Image URL"
-              formControlName="imageUrl"
-              url
-            />
-            <mat-error
-              *ngIf="this.productForm.get('imageUrl')?.hasError('required')"
-              >Image URL is required</mat-error
-            >
-            <mat-error *ngIf="this.productForm.get('imageUrl')?.hasError('url')"
-              >Incorrect URL</mat-error
-            >
+            <input matInput type="text" placeholder="Image URL" formControlName="imageUrl" url />
+            <mat-error *ngIf="this.productForm.get('imageUrl')?.hasError('required')">Image URL is required</mat-error>
+            <mat-error *ngIf="this.productForm.get('imageUrl')?.hasError('url')">Incorrect URL</mat-error>
           </mat-form-field>
           <div class="d-flex justify-content-between p-2">
-            <button
-              [disabled]="f.invalid || submitted"
-              type="submit"
-              mat-raised-button
-              color="primary"
-            >
+            <button [disabled]="f.invalid || submitted" type="submit" mat-raised-button color="primary">
               Save
             </button>
             <button mat-raised-button color="warn" (click)="onCancel()">
@@ -88,23 +45,8 @@
         </div>
       </form>
     </div>
-    <div class="col-md-6 col-sm-12 p-2" *ngIf="productForm.get('title').value">
-      <mat-card>
-        <img
-          mat-card-image
-          [src]="productForm.get('imageUrl').value"
-          alt="Product Image"
-          class="p-2"
-        />
-        <mat-card-header>
-          <mat-card-title class="p-1">{{
-            productForm.get("title").value
-          }}</mat-card-title>
-          <mat-card-subtitle class="p-1">{{
-            productForm.get("price").value | currency: USD:code
-          }}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
+    <div class="col-md-5 col-sm-12" *ngIf="productForm.get('title').value">
+      <product-card [fg]="productForm"></product-card>
     </div>
   </div>
 </div>

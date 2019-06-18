@@ -1,0 +1,37 @@
+<ng-container *ngIf="forAdminsPage">
+  <div class="product-card">
+    <mat-card>
+      <div class="text-center">
+        <img mat-card-image [src]="productForm.get('imageUrl').value" alt="" />
+      </div>
+      <mat-card-content>
+        <mat-card-title>{{ productForm.get('title').value }}</mat-card-title>
+        <br />
+        <mat-card-subtitle>{{ productForm.get('price').value | currency: USD:code }}</mat-card-subtitle>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="accent">ADD TO CARD</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="forHomePage">
+  <div class="product-card">
+    <mat-card>
+      <div class="text-center">
+        <img mat-card-image [src]="product.imageurl" alt="product.imageurl" />
+      </div>
+      <mat-card-content>
+        <mat-card-title>{{ product.title }}</mat-card-title>
+        <br />
+        <mat-card-subtitle>{{
+                  product.price | currency: USD:code
+                        }}</mat-card-subtitle>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="accent">ADD TO CARD</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>

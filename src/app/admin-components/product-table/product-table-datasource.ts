@@ -46,7 +46,6 @@ export class ProductTableDataSource extends DataSource<Product> {
       .subscribe(products => {
         this.data.next(products);
         this.dataLength = products.length;
-        console.log(this.dataLength);
       });
   }
 }
