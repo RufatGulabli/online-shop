@@ -58,16 +58,18 @@ export class ProductTableComponent implements OnInit, AfterViewInit, OnDestroy {
         tap(() => {
           this.paginator.pageIndex = 0;
           this.loadProductsAsPerThePagination();
-
+          this.subscription.add(
+            this.productService.getCountByFilter(this.input.nativeElement.value)
+              .subscribe(count => {
+                this.length = count;
+              })
+          )
         })
       )
       .subscribe(() => {
-        this.paginator.length =
-          this.dataSource.dataLength / this.paginator.pageSize > 1
-            ? this.length
-            : 1;
-        // this.productService.getCountByFilter(this.input.nativeElement.value)
-        //   .subscribe(count => this.length = count);
+        if (this.input.nativeElement.value === "") {
+          this.paginator.length = this.length;
+        }
       }));
 
     this.subscription.add(merge(this.sort.sortChange, this.paginator.page).subscribe(() => {
@@ -88,6 +90,7 @@ export class ProductTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clearInput() {
     this.input.nativeElement.value = "";
+    this.paginator.length = this.length;
     this.loadProductsAsPerThePagination();
   }
 

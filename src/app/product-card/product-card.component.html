@@ -7,11 +7,8 @@
       <mat-card-content>
         <mat-card-title>{{ productForm.get('title').value }}</mat-card-title>
         <br />
-        <mat-card-subtitle>{{ productForm.get('price').value | currency: USD:code }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ productForm.get('price').value | currency: 'USD':'code' }}</mat-card-subtitle>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button color="accent">ADD TO CARD</button>
-      </mat-card-actions>
     </mat-card>
   </div>
 </ng-container>
@@ -26,12 +23,25 @@
         <mat-card-title>{{ product.title }}</mat-card-title>
         <br />
         <mat-card-subtitle>{{
-                  product.price | currency: USD:code
+                  product.price | currency: 'USD':'code'
                         }}</mat-card-subtitle>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button color="accent">ADD TO CARD</button>
+        <button *ngIf="count === 0" mat-button color="accent" (click)="add()">ADD TO
+          CART</button>
+        <div *ngIf="count !== 0" class="action-buttons">
+          <button mat-icon-button color="warn" (click)="remove()">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <div color="warn" style="font-weight: 500">
+            {{ count }} item(s) in cart
+          </div>
+          <button mat-icon-button color="primary" (click)="add()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
       </mat-card-actions>
+
     </mat-card>
   </div>
 </ng-container>

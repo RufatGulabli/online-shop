@@ -4,7 +4,7 @@ export class User {
     private email: string,
     private fullName: string,
     private isAdmin: number
-  ) {}
+  ) { }
 
   get IsAdmin() {
     return this.isAdmin;

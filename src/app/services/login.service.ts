@@ -1,26 +1,26 @@
-import { User } from "./../model/user";
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import { User } from './../model/user';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class LoginService {
-  private url = "http://localhost:3000/login";
+  private url = 'http://localhost:3000/login';
 
   private user: User;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem("Token");
+  public isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 
-  getCredentials(): User {
-    let token = localStorage.getItem("Token");
+  public getCredentials(): User {
+    const token: string = localStorage.getItem('token');
     if (!token) {
       return null;
     }
@@ -29,7 +29,7 @@ export class LoginService {
     return user;
   }
 
-  login(credentials: any): Observable<any> {
+  public login(credentials: any): Observable<any> {
     return this.httpClient
       .post(this.url, credentials)
       .pipe(catchError(this.errorHandler));

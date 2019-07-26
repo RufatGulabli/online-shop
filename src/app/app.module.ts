@@ -26,6 +26,8 @@ import { MaterialComponentsModule } from "./material-components.module";
 import { ProductTableComponent } from "./admin-components/product-table/product-table.component";
 import { DeleteProductDialogComponent } from "./admin-components/product-table/delete-product-dialog/delete-product-dialog.component";
 import { ProductCardComponent } from './product-card/product-card.component';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { AlertComponent } from './helpers/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     ProductTableComponent,
     DeleteProductDialogComponent,
     ProductCardComponent,
+    CheckOutComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +69,6 @@ import { ProductCardComponent } from './product-card/product-card.component';
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [DeleteProductDialogComponent]
+  entryComponents: [DeleteProductDialogComponent, AlertComponent]
 })
 export class AppModule { }

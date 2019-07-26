@@ -2,17 +2,17 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpParams
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { catchError, map } from "rxjs/operators";
-import { throwError, Observable } from "rxjs";
-import { Product } from "../model/product";
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError, map } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
+import { Product } from '../model/product';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ProductService {
-  private url = "http://localhost:3000/product";
+  private url = 'http://localhost:3000/product';
 
   constructor(private http: HttpClient) { }
 
@@ -23,20 +23,20 @@ export class ProductService {
   }
 
   getAll(
-    sortColumn: string = "title",
-    sortOrder: string = "asc",
+    sortColumn: string = 'title',
+    sortOrder: string = 'asc',
     pageSize: number = 2,
     pageNumber: number = 0,
-    filter: string = ""
+    filter: string = ''
   ): Observable<Product[]> {
     return this.http
       .get<Product[]>(this.url, {
         params: new HttpParams()
-          .set("sortColumn", sortColumn)
-          .set("sortOrder", sortOrder)
-          .set("pageSize", pageSize.toString())
-          .set("pageNumber", pageNumber.toString())
-          .set("filter", filter)
+          .set('sortColumn', sortColumn)
+          .set('sortOrder', sortOrder)
+          .set('pageSize', pageSize.toString())
+          .set('pageNumber', pageNumber.toString())
+          .set('filter', filter)
       })
       .pipe(
         map(res => res),
@@ -46,16 +46,16 @@ export class ProductService {
 
   getById(id): Observable<Product> {
     return this.http
-      .get<Product>(this.url.concat("/" + id))
+      .get<Product>(this.url.concat('/' + id))
       .pipe(catchError(this.errorHandler));
   }
 
   getByCategory(id: number, pageSize: number, pageNumber: number): Observable<Product[]> {
     return this.http
-      .get<Product[]>(this.url.concat("/category/").concat(id.toString()), {
+      .get<Product[]>(this.url.concat('/category/').concat(id.toString()), {
         params: new HttpParams()
-          .set("pageSize", pageSize.toString())
-          .set("pageNumber", pageNumber.toString())
+          .set('pageSize', pageSize.toString())
+          .set('pageNumber', pageNumber.toString())
       })
       .pipe(catchError(this.errorHandler));
   }
@@ -66,20 +66,20 @@ export class ProductService {
 
   remove(id) {
     return this.http
-      .delete(this.url.concat("/" + id))
+      .delete(this.url.concat('/' + id))
       .pipe(catchError(this.errorHandler));
   }
 
   getCount(category: number) {
     if (category) {
-      return this.http.get<number>(this.url.concat("/getCountByCategory/".concat(category.toString())));
+      return this.http.get<number>(this.url.concat('/getCountByCategory/'.concat(category.toString())));
     } else {
-      return this.http.get<number>(this.url.concat("/count"));
+      return this.http.get<number>(this.url.concat('/count'));
     }
   }
 
   getCountByFilter(filter) {
-    return this.http.get<number>(this.url.concat("/getCount/ByFilter/".concat(filter)));
+    return this.http.get<number>(this.url.concat('/getCount/ByFilter/'.concat(filter)));
   }
 
   private errorHandler(error: HttpErrorResponse) {

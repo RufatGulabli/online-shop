@@ -1,3 +1,84 @@
-<p style="margin-top:150px ">
-  shopping-cart works!
-</p>
+<div style="margin-top: 90px;">
+  <div class="container">
+    <div class="row m-1 h1">
+      <p>Shopping Cart</p><span style="margin-left:10px;">
+        <mat-icon style="font-size: 40px; color: hotpink;">shopping_cart</mat-icon>
+      </span>
+    </div>
+  </div>
+  <ng-container *ngIf="products.productSet.size">
+    <div class="product-container">
+      <mat-list *ngIf="products.productSet.size">
+        <div class="header">
+          <div style='text-align: center; width: 5%;'></div>
+          <div style='text-align: center; width: 10%;'></div>
+          <div class="product-name">Product</div>
+          <div class="product-price">Price</div>
+          <div class="quantity">Quantity</div>
+          <div class="total">Total</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="scrollable">
+          <mat-list-item class="animated fadeInDown" *ngFor="let item of products.productSet | keyvalue; let i = index">
+
+            <div style='text-align: center; width: 5%;'>
+              {{i + 1}}
+            </div>
+            <div class="img-container">
+              <img [src]="item.value.product.imageurl" alt="">
+            </div>
+
+            <div class="product-name">
+              {{ item.value.product.title }}
+            </div>
+
+            <div class="product-price">
+              {{ item.value.product.price | currency }}
+            </div>
+
+            <div class="quantity">
+              <span><button mat-icon-button (click)="remove(item.value.product.id, item.value.quantity)">
+                  <mat-icon color="warn">remove</mat-icon>
+                </button></span>
+              {{ item.value.quantity  }}
+              <span><button mat-icon-button (click)="add(item.value.product.id, item.value.quantity)">
+                  <mat-icon color="primary">add</mat-icon>
+                </button></span>
+            </div>
+
+            <div class="total">
+              {{ item.value.product.price * item.value.quantity | currency }}
+            </div>
+
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </div>
+
+      </mat-list>
+      <div class="footer-buttons">
+        <a mat-stroked-button routerLink="/check-out" color="primary" [disabled]="!products.productSet.size">
+          <mat-icon matPrefix>check_circle_outline</mat-icon>
+          Check Out
+        </a>
+        <button mat-stroked-button (click)="clear()" color="warn" [disabled]="!products.productSet.size">
+          <mat-icon matPrefix>delete_outline</mat-icon>
+          Clear Shopping Cart
+        </button>
+        <div style="margin-right: 5rem; text-shadow: 0 0 1px darkgreen;">Grand Total :
+          {{ products.TotalSumm | currency  }}
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!products.productSet.size">
+    <div class="d-flex justify-content-center p-5 m-2">
+      <img src="../../assets/img/emptycart.png" alt="" style="min-width: 150px; min-height: 150px;">
+    </div>
+    <div class="d-flex justify-content-center p-5 m-1">
+      Shoppingcart is empty. Please add some products before purchasing!
+    </div>
+  </ng-container>
+
+
+
+</div>

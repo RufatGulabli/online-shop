@@ -29,7 +29,7 @@
     </div>
     <div>
       <div id="1" [class.cards-container]="!sideNavOpenToggleButton" [class.iconClicked]="sideNavOpenToggleButton">
-        <product-card *ngFor="let prod of products" [product]="prod"></product-card>
+        <product-card *ngFor="let prod of products" [product]="prod" [count]=""></product-card>
       </div>
       <div>
         <mat-paginator [length]="length" [pageSize]="paginator.pageSize" [pageIndex]="0">

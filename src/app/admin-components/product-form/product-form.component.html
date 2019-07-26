@@ -17,7 +17,7 @@
             <mat-icon matPrefix>attach_money</mat-icon>
             <input matInput type="number" placeholder="Price" formControlName="price" />
             <mat-error *ngIf="productForm.get('price')?.hasError('required')">Price is required</mat-error>
-            <mat-error *ngIf="productForm.get('price')?.hasError('min')">Price can't be less than 0</mat-error>
+            <mat-error *ngIf="productForm.get('price')?.hasError('min')">Price can't be less than 1</mat-error>
             <mat-error *ngIf="productForm.get('price')?.hasError('pattern')">Invalid number</mat-error>
           </mat-form-field>
           <mat-form-field>

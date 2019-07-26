@@ -1,33 +1,35 @@
-import { Product } from "./../model/product";
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, ChangeDetectorRef } from "@angular/core";
-import { ProductService } from "../services/product.service";
-import { CategoryService } from "./../services/category.service";
-import { ActivatedRoute } from "@angular/router";
-import { fromEvent, Subscription } from "rxjs";
-import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
-import { MatPaginator, MatPaginatorIntl } from "@angular/material";
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material';
+import { fromEvent, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+
+import { ProductService } from '../services/product.service';
+import { CategoryService } from './../services/category.service';
+import { Product } from './../model/product';
 
 @Component({
-  selector: "home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"]
+  selector: 'home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  sideNavOpenToggleButton: boolean = false;
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  sideNavOpenToggleButton = false;
   windowWidth: number;
   sideNavMode: string;
   length: number;
+  categoryId: number;
   private subscription = new Subscription(); // in order to unsubsribe from all observable in one go
 
-  @ViewChild("input") input: ElementRef;
+  @ViewChild('input') input: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   products: Product[] = [];
-  categories: string[] = [];
+  categories: { id: number, description: string }[] = [];
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {
 
     this.windowWidth = window.innerWidth;
@@ -40,37 +42,27 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.paginator.pageSize = 5;
+    this.paginator.pageSize = 9;
     this.paginator.pageIndex = 0;
 
     this.subscription.add(
       this.activatedRoute.queryParamMap.subscribe(param => {
-        let categoryId = param.get("category") || null;
+        this.categoryId = +param.get('category') || null;
         this.paginator.pageIndex = 0;
-        if (this.input.nativeElement.value) this.input.nativeElement.value = "";
-        if (categoryId === null) {
-          this.getCount("");
-          this.getProducts("");
-        } else {
-          this.paginator.pageIndex = 0;
-          this.subscription.add(this.productService.getByCategory(
-            +param.get("category"),
-            this.paginator.pageSize,
-            this.paginator.pageIndex)
-            .subscribe(prods => {
-              this.products = prods;
-              this.getCount(categoryId);
-            }));
+        if (this.input.nativeElement.value) {
+          this.input.nativeElement.value = '';
         }
+        this.getProductsById(this.categoryId);
       }));
 
     this.sideNavMode = this.getSideNavMode();
+
   }
 
   ngAfterViewInit(): void {
 
     this.subscription.add(
-      fromEvent(this.input.nativeElement, "keyup")
+      fromEvent(this.input.nativeElement, 'keyup')
         .pipe(
           debounceTime(150),
           distinctUntilChanged(),
@@ -84,15 +76,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.paginator.page.subscribe(() => {
-        let category = this.activatedRoute.queryParams["value"]["category"] || null;
-        let filter = this.input.nativeElement.value;
+        const category = this.activatedRoute.queryParams['value']['category'] || null;
+        const filter = this.input.nativeElement.value;
         if (filter) {
           this.getProducts(filter);
           this.getCountByFilter(filter);
-        }
-        else if (category === null) {
+        } else if (category === null) {
           this.subscription.add(
-            this.productService.getAll("title", "asc", this.paginator.pageSize, this.paginator.pageIndex + 1)
+            this.productService.getAll('title', 'asc', this.paginator.pageSize, this.paginator.pageIndex + 1)
               .subscribe(data => {
                 this.products = data;
               }));
@@ -102,7 +93,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               .subscribe(data => {
                 this.products = data;
               })
-          )
+          );
         }
       }));
   }
@@ -110,23 +101,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   private getSideNavMode() {
     if (this.windowWidth <= 1024) {
       this.sideNavOpenToggleButton = false;
-      return "over";
+      return 'over';
     } else {
       this.sideNavOpenToggleButton = true;
-      return "side";
+      return 'side';
     }
   }
 
   private getProducts(filter) {
     if (filter) {
       this.subscription.add(
-        this.productService.getAll("title", "asc", this.paginator.pageSize, this.paginator.pageIndex + 1, filter)
+        this.productService.getAll('title', 'asc', this.paginator.pageSize, this.paginator.pageIndex + 1, filter)
           .subscribe((result: Product[]) => {
             this.products = result;
           }));
     } else {
       this.subscription.add(
-        this.productService.getAll("title", "asc", this.paginator.pageSize).subscribe((result: Product[]) => {
+        this.productService.getAll('title', 'asc', this.paginator.pageSize).subscribe((result: Product[]) => {
           this.products = result;
         }));
     }
@@ -148,8 +139,26 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   clearInput() {
-    this.input.nativeElement.value = "";
-    this.getProducts("");
+    this.input.nativeElement.value = '';
+    this.getProducts('');
+    this.getProductsById(this.categoryId);
+  }
+
+  private getProductsById(categoryId) {
+    if (categoryId === null) {
+      this.getCount('');
+      this.getProducts('');
+    } else {
+      this.paginator.pageIndex = 0;
+      this.subscription.add(this.productService.getByCategory(
+        categoryId,
+        this.paginator.pageSize,
+        this.paginator.pageIndex)
+        .subscribe(prods => {
+          this.products = prods;
+          this.getCount(categoryId);
+        }));
+    }
   }
 
 
