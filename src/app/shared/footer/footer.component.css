@@ -1,0 +1,27 @@
+.box {
+  background-color: #0097A7;
+  margin: -10px -10px;
+  padding: 10px;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+  display: inline;
+}
+
+.icon {
+  font-size: 30px;
+  padding: 10px;
+}
+
+a {
+  color: white;
+}
+a:hover {
+  color: #0035a8;
+}
+.author {
+  font-size: 18px;
+}
+

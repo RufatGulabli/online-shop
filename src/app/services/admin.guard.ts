@@ -6,7 +6,9 @@ import {
   Router
 } from '@angular/router';
 import { LoginService } from './login.service';
-import { User } from '../model/user';
+import { User } from '../shared/model/user';
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +19,25 @@ export class AdminGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
-    const isAdmin = (this.loginService.getCredentials() as any).isAdmin;
-    if (isAdmin) {
-      return true;
-    }
-    this.router.navigate(['/noaccess']);
-    return false;
+  ): Observable<boolean> {
+    // const isAdmin = (this.loginService.getCredentials() as any).isAdmin;
+    // if (isAdmin) {
+    //   return true;
+    // }
+    // this.router.navigate(['/noaccess']);
+    // return false;
+
+    return this.loginService.User.pipe(
+      map((user: any) => {
+        console.log(user);
+        if (user.isAdmin) {
+          return true;
+        } else {
+          this.router.navigate(['/noaccess']);
+          return false;
+        }
+      },
+        catchError(err => of(false))
+      ));
   }
 }

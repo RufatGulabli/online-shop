@@ -1,0 +1,21 @@
+<div class="container" #content>
+  <ng-container *ngIf="status === 'success'">
+    <div class="image">
+      <img src="../../../assets/img/tick.png" alt="">
+    </div>
+  </ng-container>
+  <ng-container *ngIf="status === 'error'">
+    <div class="image">
+      <img src="../../../assets/img/error.png" alt="">
+    </div>
+  </ng-container>
+  <ng-container *ngIf="status === 'warn'">
+    <div class="image">
+      <img src="../../../assets/img/warning.png" alt="">
+    </div>
+  </ng-container>
+  <div class="text">{{ message }}</div>
+  <div class="footer">
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+  </div>
+</div>

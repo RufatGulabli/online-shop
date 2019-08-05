@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg fixed-top" style="margin-bottom: 2px; background-color: #0097A7; color:">
+  <a class="navbar-brand" routerLink="/"><i class="material-icons" style="color: #ffffff; font-size: 40px;">home</i></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/shopping-cart"><i class="material-icons" style="color: #646464">
+            shopping_cart
+          </i></a>
+      </li>
+      <li class="nav-item">
+        <div class="badge-container">
+          <span [matBadge]="count" matBadgeColor="accent" matBadgeOverlap="false"></span>
+        </div>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav">
+      <li *ngIf="!loginService.isLoggedIn()" class="nav-item">
+        <a mat-stroked-button class="nav-link" routerLink="/login" style="margin-right: 4px; color: white;">Login</a>
+      </li>
+      <li *ngIf="!loginService.isLoggedIn()" class="nav-item">
+        <a mat-stroked-button class="nav-link" routerLink="/signup" style="color: white;">Sign Up</a>
+      </li>
+      <li *ngIf="loginService.isLoggedIn()" ngbDropdown class="nav-item dropdown">
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" role="button" style="color: white;">
+          {{ user.Fullname }}
+        </a>
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
+          <ng-container *ngIf="user?.IsAdmin">
+            <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
+            <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
+          </ng-container>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logOut()">Log Out</a>
+        </div>
+      </li>
+
+    </ul>
+
+
+  </div>
+</nav>

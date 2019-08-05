@@ -1,38 +1,79 @@
-import { User } from './../model/user';
+import { User } from '../shared/model/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, tap, take } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private url = 'http://localhost:3000/login';
+  private url = 'http://localhost:3000';
 
-  private user: User;
+  private user = new BehaviorSubject<User>(null);
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+    this.User.pipe(take(1)).subscribe(user => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        this.user.next(null);
+      } else {
+        const helper = new JwtHelperService();
+        user = helper.decodeToken(token) as User;
+        this.user.next(user);
+      }
+    });
+  }
 
   public isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  public getCredentials(): User {
-    const token: string = localStorage.getItem('token');
-    if (!token) {
-      return null;
-    }
-    const helper = new JwtHelperService();
-    const user = helper.decodeToken(token) as User;
-    return user;
+  get User(): Observable<User> {
+    return this.user.asObservable();
+  }
+
+  public getCredentials() {
+    // return this.user
   }
 
   public login(credentials: any): Observable<any> {
-    return this.httpClient
-      .post(this.url, credentials)
-      .pipe(catchError(this.errorHandler));
+    return this.http.post(this.url.concat('/login'), credentials)
+      .pipe(
+        tap((token: string) => {
+          localStorage.setItem('token', token);
+          this.User.pipe(take(1)).subscribe(() => {
+            const helper = new JwtHelperService();
+            const decoded = helper.decodeToken(token) as User;
+            this.user.next(decoded);
+          });
+        }),
+        catchError(this.errorHandler));
+  }
+
+  signup(credentials: any): Observable<any> {
+    return this.http.post(this.url.concat('/signup'), credentials)
+      .pipe(
+        tap((token: string) => {
+          localStorage.setItem('token', token);
+          this.User.pipe(take(1)).subscribe(() => {
+            const helper = new JwtHelperService();
+            const decoded = helper.decodeToken(token) as User;
+            this.user.next(decoded);
+          });
+        }),
+        catchError(this.errorHandler));
+  }
+
+  logOut() {
+    return this.User.pipe(
+      take(1),
+      tap(() => {
+        this.user.next(null);
+        localStorage.removeItem('token');
+      }));
   }
 
   private errorHandler(error: HttpErrorResponse) {

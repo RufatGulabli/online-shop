@@ -1,0 +1,25 @@
+.fullSize {
+  width: 100%;
+}
+
+form {
+  border-radius: 6px;
+  margin: 100px 0;
+  padding: 50px;
+  box-shadow: 0 0 5px rgb(150, 150, 150);
+  background-color: whitesmoke;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #30b29e;
+  padding: 20px;
+  border-bottom: 1px solid lightgrey;
+  margin: -50px -50px 30px -50px;
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
+  text-shadow: 0 0 1px white;
+}

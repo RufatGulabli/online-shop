@@ -6,7 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
-import { Product } from '../model/product';
+import { Product } from '../shared/model/product';
 
 @Injectable({
   providedIn: 'root'

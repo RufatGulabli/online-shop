@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Order } from '../model/order';
-import { ShippingAddress } from './../model/shipping-address';
-import { LoginService } from './login.service';
-import { User } from '../model/user';
-import { OrderItem } from '../model/order-item';
-import { ShoppingCartService } from './shopping-card.service';
-import { ShoppingCart } from './../model/shopping-card';
 import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+
+import { Order } from '../shared/model/order';
+import { OrderItem } from '../shared/model/order-item';
+import { LoginService } from './login.service';
+import { ShippingAddress } from '../shared/model/shipping-address';
+import { ShoppingCartService } from './shopping-card.service';
+import { take, tap, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -32,23 +32,36 @@ export class OrderService {
           address: JSON.stringify(address)
         }
       });
-      return;
+      return of(null);
     }
-    const user = this.loginService.getCredentials() as any;
+    let userId = null;
     const productsInCart: OrderItem[] = [];
     let order: Order;
-    this.shoppingCartService.ShoppingCart.subscribe(card => {
-      card.productSet.forEach(value => {
-        productsInCart.push(new OrderItem(value.product.id, value.quantity));
-      });
-      order = new Order(
-        user.id,
-        productsInCart,
-        address,
-        card.TotalSumm
-      );
-    });
-    return this.http.post<number>(this.url, order);
+    return this.loginService.User.pipe(
+      take(1),
+      tap((user: any) => {
+        userId = user.Id;
+        this.shoppingCartService.ShoppingCart.subscribe(cart => {
+          cart.productSet.forEach(value => {
+            productsInCart.push(new OrderItem(value.product.id, value.quantity));
+          });
+          order = new Order(
+            user.id,
+            productsInCart,
+            address,
+            cart.TotalSumm
+          );
+        });
+      }),
+      switchMap(() => {
+        return this.http.post<number>(this.url, order);
+      })
+
+    );
+  }
+
+  getAll(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.url);
   }
 
   getById(userId: number): Observable<Order[]> {
@@ -59,12 +72,9 @@ export class OrderService {
     return this.http.get<any[]>(this.url.concat(`/${orderId}`));
   }
 
-
-
-
-
-
-
+  getShippingDetails(orderId: number): Observable<ShippingAddress> {
+    return this.http.get<ShippingAddress>(this.url.concat(`/shipping/${orderId}`));
+  }
 
 
 }

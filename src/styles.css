@@ -4,6 +4,7 @@
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "https://fonts.googleapis.com/css?family=Nunito+Sans";
 @import '~animate.css/animate.min.css';
+@import "~@fortawesome/fontawesome-free/css/all.css";
 
 html,
 body {
@@ -11,4 +12,5 @@ body {
 }
 body {
   margin: 0;
+  background-color: #ebebeb;
 }

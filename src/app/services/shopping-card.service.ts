@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { take, tap, map } from 'rxjs/operators';
 
 import { ProductService } from 'src/app/services/product.service';
-import { ShoppingCart, ShoppingCartItem } from './../model/shopping-card';
+import { ShoppingCart, ShoppingCartItem } from '../shared/model/shopping-card';
 
 @Injectable({
   providedIn: 'root'
