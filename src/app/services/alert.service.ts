@@ -14,7 +14,7 @@ export class AlertService {
       AlertComponent,
       {
         centered: true,
-        size: 'lg',
+        size: 'sm',
         backdrop: 'static'
       }
     );

@@ -1,0 +1,7 @@
+.not-found {
+  background: url('/assets/img/page-not-found.gif') no-repeat center;
+  min-height: 80vh;
+  width: 1000px;
+  margin: 0;
+  padding: 0;
+}

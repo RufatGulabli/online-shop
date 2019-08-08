@@ -1,77 +1,75 @@
-<div style="margin-top: 100px;">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-container">
-          <div>
-            <p class="display-4">Shipping</p>
-          </div>
-          <form [formGroup]="form" (ngSubmit)="onSubmit()" #f="ngForm">
-            <mat-form-field class="fullSize" hideRequiredMarker>
-              <mat-label>Name</mat-label>
-              <input matInput type="text" formControlName="name" />
-              <mat-error *ngIf="Name.invalid && Name.touched">Name is required
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field class="fullSize" hideRequiredMarker>
-              <mat-label>Address Line 1</mat-label>
-              <input matInput type="text" formControlName="address1" />
-              <mat-error *ngIf="Address.invalid && Address.touched">Address is required
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field class="fullSize" hideRequiredMarker>
-              <mat-label>Address Line 2</mat-label>
-              <input matInput type="text" formControlName="address2" />
-            </mat-form-field>
-            <mat-form-field class="fullSize" hideRequiredMarker>
-              <mat-label>City</mat-label>
-              <input matInput type="text" formControlName="city" />
-              <mat-error *ngIf="City.invalid && City.touched">City is required
-              </mat-error>
-            </mat-form-field>
-            <div class="footer">
-              <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
-                <mat-icon matSuffix>check_circle_outline</mat-icon>
-                Place Your Order
-              </button>
-            </div>
-          </form>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-container">
+        <div>
+          <p class="display-4">Shipping</p>
         </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" #f="ngForm">
+          <mat-form-field class="fullSize" hideRequiredMarker>
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name" />
+            <mat-error *ngIf="Name.invalid && Name.touched">Name is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="fullSize" hideRequiredMarker>
+            <mat-label>Address Line 1</mat-label>
+            <input matInput type="text" formControlName="address1" />
+            <mat-error *ngIf="Address.invalid && Address.touched">Address is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="fullSize" hideRequiredMarker>
+            <mat-label>Address Line 2</mat-label>
+            <input matInput type="text" formControlName="address2" />
+          </mat-form-field>
+          <mat-form-field class="fullSize" hideRequiredMarker>
+            <mat-label>City</mat-label>
+            <input matInput type="text" formControlName="city" />
+            <mat-error *ngIf="City.invalid && City.touched">City is required
+            </mat-error>
+          </mat-form-field>
+          <div class="footer">
+            <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
+              <mat-icon matSuffix>check_circle_outline</mat-icon>
+              Place Your Order
+            </button>
+          </div>
+        </form>
       </div>
-      <div class="col-md-6">
-        <mat-card class="example-card">
-          <div class="animated bounceInRight">
-            <mat-card-header style="padding: 15px;">
-              <div mat-card-avatar class="example-header-image"></div>
-              <div class="text-center" style="font-size: 22px;text-shadow: 1px 1px 4px grey;">Shopping Cart Summary
-              </div>
-            </mat-card-header>
-            <mat-card-content>
-              <ul class="list-group list-group-flush">
-                <div class="scrollable">
-                  <li *ngFor="let item of cart.productSet | keyvalue" class="list-group-item">
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        {{ item.value.quantity }} x {{ item.value.product.title }}
-                      </div>
-                      <div>
-                        {{ (item.value.quantity * item.value.product.price) | currency}}
-                      </div>
+    </div>
+    <div class="col-md-6">
+      <mat-card class="example-card">
+        <div class="animated bounceInRight">
+          <mat-card-header style="padding: 15px;">
+            <div mat-card-avatar class="example-header-image"></div>
+            <div class="text-center" style="font-size: 22px;text-shadow: 1px 1px 4px grey;">Shopping Cart Summary
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <ul class="list-group list-group-flush">
+              <div class="scrollable">
+                <li *ngFor="let item of cart.productSet | keyvalue" class="list-group-item">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      {{ item.value.quantity }} x {{ item.value.product.title }}
                     </div>
-                  </li>
-                </div>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between font-weight-bold">
-                    <div style="text-shadow: 0px 0px 10px darkgrey;">Total</div>
-                    <div style="text-shadow: 0px 0px 10px darkgrey;">{{ cart.TotalSumm | currency }}</div>
+                    <div>
+                      {{ (item.value.quantity * item.value.product.price) | currency}}
+                    </div>
                   </div>
                 </li>
-              </ul>
-            </mat-card-content>
-          </div>
+              </div>
+              <li class="list-group-item">
+                <div class="d-flex justify-content-between font-weight-bold">
+                  <div style="text-shadow: 0px 0px 10px darkgrey;">Total</div>
+                  <div style="text-shadow: 0px 0px 10px darkgrey;">{{ cart.TotalSumm | currency }}</div>
+                </div>
+              </li>
+            </ul>
+          </mat-card-content>
+        </div>
 
-        </mat-card>
-      </div>
+      </mat-card>
     </div>
   </div>
 </div>

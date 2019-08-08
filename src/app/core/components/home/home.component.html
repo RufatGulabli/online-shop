@@ -28,8 +28,14 @@
       </mat-form-field>
     </div>
     <div>
-      <div id="1" [class.cards-container]="!sideNavOpenToggleButton" [class.iconClicked]="sideNavOpenToggleButton">
+      <div id="1" *ngIf="!noData" [class.cards-container]="!sideNavOpenToggleButton"
+        [class.iconClicked]="sideNavOpenToggleButton">
         <product-card *ngFor="let prod of products" [product]="prod" [count]=""></product-card>
+      </div>
+      <div *ngIf="noData">
+        <div class="NoDataContainer">
+
+        </div>
       </div>
       <div>
         <mat-paginator [length]="length" [pageSize]="paginator.pageSize" [pageIndex]="0">

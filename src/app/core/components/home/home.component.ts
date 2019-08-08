@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   categoryId: number;
   products: Product[] = [];
   categories: { id: number, description: string }[] = [];
+  noData = false;
 
   private subscription = new Subscription(); // in order to unsubsribe from all observable in one go
 
@@ -62,7 +63,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-
     this.subscription.add(
       fromEvent(this.input.nativeElement, 'keyup')
         .pipe(
@@ -114,12 +114,20 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (filter) {
       this.subscription.add(
         this.productService.getAll('title', 'asc', this.paginator.pageSize, this.paginator.pageIndex + 1, filter)
-          .subscribe((result: Product[]) => {
-            this.products = result;
-          }));
+          .subscribe(
+            (result: Product[]) => {
+              if (!result.length) {
+                this.noData = true;
+              } else {
+                this.noData = false;
+              }
+              this.products = result;
+            }),
+      );
     } else {
       this.subscription.add(
         this.productService.getAll('title', 'asc', this.paginator.pageSize).subscribe((result: Product[]) => {
+          this.noData = false;
           this.products = result;
         }));
     }
@@ -147,6 +155,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private getProductsById(categoryId) {
+    this.noData = false;
     if (categoryId === null) {
       this.getCount('');
       this.getProducts('');

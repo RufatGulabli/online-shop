@@ -38,13 +38,12 @@ export class LoginService {
         }
       }
       setInterval(() => {
-        console.log(`Expire Time: ${this.expires - new Date().getTime()}`);
         if (this.sessionExpired() && localStorage.getItem('token')) {
           this.alertService.showAlert('Session Expired. Please log in again.', 'warn');
           this.logOut().subscribe();
           this.router.navigate(['/']);
         }
-      }, 5000);
+      }, 10000);
     });
   }
 
