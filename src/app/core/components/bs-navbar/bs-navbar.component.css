@@ -2,14 +2,6 @@ a {
   cursor: pointer;
 }
 
-/* .navbar {
-  border-bottom: 1px solid rgb(187, 187, 187);
-  box-shadow: 0 2px 5px rgb(187, 187, 187);
-  border-radius: 3px;
-  background: url('/assets/img/bg3.jpg') no-repeat bottom;
-  background-size: 100%;
-} */
-
 .mat-badge-medium.mat-badge-after .mat-badge-content {
   right: -15px !important;
 }

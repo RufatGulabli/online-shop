@@ -14,8 +14,8 @@ import { Product } from '../../../shared/model/product';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('input') input: ElementRef;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('input', { static: true }) input: ElementRef;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   sideNavOpenToggleButton = false;
   windowWidth: number;

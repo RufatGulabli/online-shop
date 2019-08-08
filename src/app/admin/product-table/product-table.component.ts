@@ -25,9 +25,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-table.component.css']
 })
 export class ProductTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('input') input: ElementRef;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('input', { static: true }) input: ElementRef;
 
   length: number;
   dataSource: ProductTableDataSource;
