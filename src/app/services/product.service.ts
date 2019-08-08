@@ -7,12 +7,13 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { Product } from '../shared/model/product';
+import appconfig from '../../assets/appconfig.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private url = 'http://localhost:3000/product';
+  private url = `${appconfig.apiUrl}/product`;
 
   constructor(private http: HttpClient) { }
 

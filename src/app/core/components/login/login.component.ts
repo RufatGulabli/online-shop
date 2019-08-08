@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     ])
   });
   public error;
+  public loader: boolean;
 
   private subscription = new Subscription();
 
@@ -55,8 +56,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.loader = true;
     this.subscription.add(
-      this.loginService.login(this.form.value).subscribe(() => {
+      this.loginService.login(this.form.value).subscribe(result => {
+        this.loader = false;
         const queryObject: QueryObject = {} as QueryObject;
         queryObject.returnUrl = this.activatedRoute.snapshot.queryParamMap.get(
           'returnUrl'
@@ -76,6 +79,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
         (err: HttpErrorResponse) => {
           this.error = err.error.body;
+          this.loader = false;
         }
       ));
   }

@@ -36,8 +36,10 @@
           </div>
         </div>
 
-
         <div class="tbody">
+          <div *ngIf="loader">
+            <div class="loader"></div>
+          </div>
           <mat-accordion>
             <mat-expansion-panel *ngFor="let order of orders; let i = index" (opened)="show(order.id)">
               <mat-expansion-panel-header>

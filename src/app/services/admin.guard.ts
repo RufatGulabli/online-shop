@@ -29,7 +29,6 @@ export class AdminGuard implements CanActivate {
 
     return this.loginService.User.pipe(
       map((user: any) => {
-        console.log(user);
         if (user.isAdmin) {
           return true;
         } else {

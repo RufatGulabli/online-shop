@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { LoginService } from '../../services/login.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -50,10 +50,7 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
   }
 
   getLocalDate(date: string) {
-    console.log(date);
-    const local = moment.utc(date);
-    local.local();
-    return local.format('ddd, DD MMM YYYY, HH:mm');
+    return moment.utc(date).local().format('ddd, DD MMM YYYY, HH:mm');
   }
 
   ngOnDestroy() {

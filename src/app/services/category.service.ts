@@ -1,15 +1,16 @@
-import { throwError } from "rxjs";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { catchError } from "rxjs/operators";
+import { throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import appconfig from '../../assets/appconfig.json';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class CategoryService {
-  private url = "http://localhost:3000/category";
+  private url = `${appconfig.apiUrl}/category`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll() {
     return this.http.get<[]>(this.url).pipe(catchError(this.errorHandler));

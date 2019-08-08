@@ -1,20 +1,28 @@
 import { User } from '../shared/model/user';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap, take } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import appconfig from '../../assets/appconfig.json';
+import { AlertService } from './alert.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private url = 'http://localhost:3000';
+  private url = `${appconfig.apiUrl}`;
 
   private user = new BehaviorSubject<User>(null);
 
-  constructor(private http: HttpClient) {
+  private expires;
 
+  constructor(
+    private http: HttpClient,
+    private alertService: AlertService,
+    private router: Router
+  ) {
     this.User.pipe(take(1)).subscribe(user => {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -22,21 +30,33 @@ export class LoginService {
       } else {
         const helper = new JwtHelperService();
         user = helper.decodeToken(token) as User;
-        this.user.next(user);
+        this.expires = new Date(0).setUTCSeconds(user['exp']);
+        if (this.sessionExpired()) {
+          this.user.next(null);
+        } else {
+          this.user.next(user);
+        }
       }
+      setInterval(() => {
+        console.log(`Expire Time: ${this.expires - new Date().getTime()}`);
+        if (this.sessionExpired() && localStorage.getItem('token')) {
+          this.alertService.showAlert('Session Expired. Please log in again.', 'warn');
+          this.logOut().subscribe();
+          this.router.navigate(['/']);
+        }
+      }, 5000);
     });
   }
 
   public isLoggedIn(): boolean {
+    if (this.sessionExpired()) {
+      return null;
+    }
     return !!localStorage.getItem('token');
   }
 
   get User(): Observable<User> {
     return this.user.asObservable();
-  }
-
-  public getCredentials() {
-    // return this.user
   }
 
   public login(credentials: any): Observable<any> {
@@ -47,6 +67,7 @@ export class LoginService {
           this.User.pipe(take(1)).subscribe(() => {
             const helper = new JwtHelperService();
             const decoded = helper.decodeToken(token) as User;
+            this.expires = new Date(0).setUTCSeconds(decoded['exp']);
             this.user.next(decoded);
           });
         }),
@@ -83,5 +104,12 @@ export class LoginService {
       return throwError(error);
     }
     return throwError(error);
+  }
+
+  private sessionExpired() {
+    if (this.expires - new Date().getTime() <= 0) {
+      return true;
+    }
+    return false;
   }
 }

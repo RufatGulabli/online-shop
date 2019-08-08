@@ -19,6 +19,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   toggleDateSort = false;
   selectedOrderId: number;
   shippingDetails: ShippingAddress;
+  loader: boolean;
 
   private subscription = new Subscription();
 
@@ -27,7 +28,9 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.loader = true;
     this.subscription.add(this.orderService.getAll().subscribe(orders => {
+      this.loader = false;
       if (!orders) {
         return;
       }

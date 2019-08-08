@@ -23,3 +23,23 @@ form {
   font-weight: 700;
   text-shadow: 0 0 1px white;
 }
+.loader-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.loader {
+  background: url('/assets/img/loader.gif') no-repeat;
+  background-position: center;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 180px;
+  left: 200px;
+  z-index: 999;
+}
+.loading {
+  opacity: 0.3;
+}

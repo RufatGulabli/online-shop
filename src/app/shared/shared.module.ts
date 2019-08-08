@@ -19,7 +19,6 @@ import { BrowserModule } from '@angular/platform-browser';
     FooterComponent
   ],
   imports: [
-    BrowserModule,
     MaterialComponentsModule,
     CommonModule,
     NgbModule,

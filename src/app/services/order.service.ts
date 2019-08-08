@@ -9,13 +9,14 @@ import { LoginService } from './login.service';
 import { ShippingAddress } from '../shared/model/shipping-address';
 import { ShoppingCartService } from './shopping-card.service';
 import { take, tap, switchMap } from 'rxjs/operators';
+import appconfig from '../../assets/appconfig.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  private url = 'http://localhost:3000/order';
+  private url = `${appconfig.apiUrl}/order`;
 
   constructor(
     private loginService: LoginService,
