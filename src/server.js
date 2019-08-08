@@ -8,6 +8,7 @@ const app = express();
 app.use(express.static(__dirname + '/dist/online-shop/'));
 
 app.get('/*', function (req, res) {
+  console.log(__dirname);
   res.sendFile(path.join(__dirname + '/dist/online-shop/index.html'));
 });
 
