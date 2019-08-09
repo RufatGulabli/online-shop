@@ -30,4 +30,22 @@ mat-card-title {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+
+}
+.mat-card-actions .mat-button {
+  margin: 2px 8px;
+}
+
+
+@media screen and (max-width: 768px){
+  img {
+    min-height: 150px ;
+    max-height: 150px ;
+    height: 150px ;
+    min-width: 250px;
+    max-width: 250px;
+  }
+  .mat-card {
+    width: 320px !important;
+  }
 }

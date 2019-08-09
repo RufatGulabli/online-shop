@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6" style="padding: 0 80px;">
       <div class="header">
-        <div class="display-4 p-2 m-2">My Orders</div>
+        <div style="font-size: 30px; margin: 30px 0;">My Orders</div>
       </div>
       <mat-list class="order-item font-weight-bold" style="padding: 10px 0; border-bottom: 1px solid gray">
         <div class="text-center">No</div>
@@ -40,7 +40,7 @@
     </div>
     <div class="col-md-6 animated zoomIn" style="padding: 0 40px;" *ngIf="showDescPanel">
       <div
-        style="padding: 10px; margin: 140px 50px 0; box-shadow: 0 0 2px gray; border-radius: 4px; background-color: ghostwhite;">
+        style="padding: 10px; margin: 120px 50px 0; box-shadow: 0 0 2px gray; border-radius: 4px; background-color: ghostwhite;">
         <div class="desc-header">Purchase Details</div>
         <div class="scrollable">
           <div *ngFor="let item of orderDetails">

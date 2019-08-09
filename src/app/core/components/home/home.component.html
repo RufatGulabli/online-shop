@@ -12,6 +12,30 @@
         <a mat-list-item routerLink="/">All</a>
         <a mat-list-item *ngFor="let cat of categories" routerLink="/"
           [queryParams]="{ category: cat.id }">{{ cat.description }}</a>
+
+        <!-- Skeleton Loaders -->
+        <div *ngIf="skeletonLoader">
+          <div style="padding: 6.5px 16px;">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '20px', 'width': '120px'}"></ngx-skeleton-loader>
+          </div>
+          <div style="padding: 6.5px 16px;">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '20px', 'width': '120px'}"></ngx-skeleton-loader>
+          </div>
+          <div style="padding: 6.5px 16px;">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '20px', 'width': '120px'}"></ngx-skeleton-loader>
+          </div>
+          <div style="padding: 6.5px 16px;">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '20px', 'width': '120px'}"></ngx-skeleton-loader>
+          </div>
+          <div style="padding: 6.5px 16px;">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '20px', 'width': '120px'}"></ngx-skeleton-loader>
+          </div>
+          <div style="padding: 6.5px 16px;">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '20px', 'width': '120px'}"></ngx-skeleton-loader>
+          </div>
+        </div>
+
+
       </mat-action-list>
     </div>
   </mat-sidenav>
@@ -28,6 +52,97 @@
         </button>
       </mat-form-field>
     </div>
+
+
+    <!-- Skeleton Loaders -->
+    <div *ngIf="skeletonLoader">
+      <div [class.cards-container]="!sideNavOpenToggleButton" [class.iconClicked]="sideNavOpenToggleButton">
+        <div class="skel-container">
+          <div class="skel-img">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '240px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-title" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-price" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-footer">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+        </div>
+        <div class="skel-container">
+          <div class="skel-img">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '240px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-title" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-price" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-footer">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+        </div>
+        <div class="skel-container">
+          <div class="skel-img">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '240px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-title" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-price" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-footer">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+        </div>
+        <div class="skel-container">
+          <div class="skel-img">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '240px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-title" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-price" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-footer">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+        </div>
+        <div class="skel-container">
+          <div class="skel-img">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '240px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-title" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-price" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-footer">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+        </div>
+        <div class="skel-container">
+          <div class="skel-img">
+            <ngx-skeleton-loader count="1" [theme]="{'height': '240px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-title" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-price" style="margin-bottom: 20px;">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+          <div class="skel-footer">
+            <ngx-skeleton-loader count="1" [theme]="{'width':'100px'}"></ngx-skeleton-loader>
+          </div>
+        </div>
+      </div>
+    </div>
     <div>
       <div id="1" *ngIf="!noData" [class.cards-container]="!sideNavOpenToggleButton"
         [class.iconClicked]="sideNavOpenToggleButton">
@@ -35,7 +150,6 @@
       </div>
       <div *ngIf="noData">
         <div class="NoDataContainer">
-
         </div>
       </div>
       <div>
@@ -43,6 +157,9 @@
         </mat-paginator>
       </div>
     </div>
-    <app-footer></app-footer>
+
+    <div>
+      <app-footer></app-footer>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

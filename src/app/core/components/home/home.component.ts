@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   products: Product[] = [];
   categories: { id: number, description: string }[] = [];
   noData = false;
+  skeletonLoader = true;
 
   private subscription = new Subscription(); // in order to unsubsribe from all observable in one go
 
@@ -128,6 +129,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.subscription.add(
         this.productService.getAll('title', 'asc', this.paginator.pageSize).subscribe((result: Product[]) => {
           this.noData = false;
+          this.skeletonLoader = false;
           this.products = result;
         }));
     }
@@ -168,6 +170,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           this.paginator.pageIndex)
           .subscribe(prods => {
             this.products = prods;
+            this.skeletonLoader = false;
             this.getCount(categoryId);
           }));
     }

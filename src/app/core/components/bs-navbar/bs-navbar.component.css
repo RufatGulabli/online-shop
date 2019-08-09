@@ -6,10 +6,10 @@ a {
 }
 
 .mat-badge-medium.mat-badge-after .mat-badge-content {
-  right: -15px !important;
+  right: -10px !important;
 }
 .mat-badge-medium.mat-badge-above .mat-badge-content {
-  top: -5px !important;
+  top: -30px !important;
 }
 
 .badge-container {
@@ -17,7 +17,7 @@ a {
 }
 
 .home > i:hover {
-  color: #f57c00 !important;
+  color: #370097 !important;
 }
 
 .shop > i:hover {
@@ -26,5 +26,16 @@ a {
 }
 .name {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar-nav {
+    float: left;
+    flex-direction: row !important;
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+  }
 }
 

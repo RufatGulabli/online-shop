@@ -19,9 +19,25 @@ a {
   color: white;
 }
 a:hover {
-  color: #a20017;
+  color: #370097;
 }
 .author {
   font-size: 18px;
+}
+
+.flex {
+  display: flex;
+}
+
+@media screen and (max-width: 600px){
+  .flex {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px){
+  .flex {
+    display: block;
+  }
 }
 

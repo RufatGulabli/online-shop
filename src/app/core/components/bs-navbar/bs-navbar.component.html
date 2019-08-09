@@ -1,76 +1,66 @@
-<nav class="navbar navbar-expand-lg fixed-top" style="margin-bottom: 2px; background-color: #673ab7;">
-  <a class="navbar-brand home" routerLink="/"><i class="material-icons"
-      style="color: #ffffff; font-size: 40px;">home</i></a>
-  <div class="collapse navbar-collapse d-flex justify-content-between align-items-center" id="navbarSupportedContent">
-    <ul class="navbar-nav mr">
-      <li class="nav-item">
-        <a class="nav-link shop" routerLink="/shopping-cart"><i class="material-icons" style="color: #383838">
-            shopping_cart
-          </i></a>
-      </li>
-      <li class="nav-item">
-        <div class="badge-container">
-          <span [matBadge]="count" matBadgeColor="accent" matBadgeOverlap="false"></span>
-        </div>
-      </li>
-    </ul>
+<div class="container">
+  <div class="row">
+    <nav class="navbar navbar-expand-lg fixed-top" style="margin-bottom: 2px; background-color: #673ab7;">
 
-    <ul class="navbar-nav">
-      <li *ngIf="!loginService.isLoggedIn()" class="nav-item">
-        <a mat-stroked-button class="nav-link" routerLink="/login" style="margin-right: 4px; color: white;">Login</a>
-      </li>
-      <li *ngIf="!loginService.isLoggedIn()" class="nav-item">
-        <a mat-stroked-button class="nav-link" routerLink="/signup" style="color: white;">Sign Up</a>
-      </li>
+      <div class="collapse navbar-collapse d-flex justify-content-between align-items-center"
+        id="navbarSupportedContent">
 
-      <div *ngIf="loginService.isLoggedIn()" class="d-flex justify-content-center align-items-center name"
-        mat-icon-button [matMenuTriggerFor]="menu" style="color: white;">
-        {{ user.Fullname }}
-        <span>
-          <mat-icon>more_vert</mat-icon>
-        </span>
+        <ul class="navbar-nav d-flex justify-content-start align-items-center col-sm-4">
+          <li class="nav-item">
+            <a class="navbar-brand home" routerLink="/"><i class="material-icons"
+                style="color: #ffffff; font-size: 40px;">home</i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link shop" routerLink="/shopping-cart"><i class="material-icons" style="color: #383838">
+                shopping_cart
+              </i></a>
+          </li>
+          <li class="nav-item">
+            <div class="badge-container">
+              <span [matBadge]="count" matBadgeColor="accent" matBadgeOverlap="false"></span>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav d-flex justify-content-end align-items-center col-sm-8">
+          <li *ngIf="!loginService.isLoggedIn()" class="nav-item">
+            <a mat-stroked-button class="nav-link" routerLink="/login"
+              style="margin-right: 4px; color: white;">Login</a>
+          </li>
+          <li *ngIf="!loginService.isLoggedIn()" class="nav-item">
+            <a mat-stroked-button class="nav-link" routerLink="/signup" style="color: white;">Sign Up</a>
+          </li>
+
+          <div *ngIf="loginService.isLoggedIn()" class="d-flex justify-content-center align-items-center name"
+            mat-icon-button [matMenuTriggerFor]="menu" style="color: white;">
+            {{ user.Fullname }}
+            <span>
+              <mat-icon>more_vert</mat-icon>
+            </span>
+          </div>
+          <mat-menu #menu="matMenu" [overlapTrigger]="true" style="z-index: 1031">
+            <a mat-menu-item routerLink="/my/orders">
+              <mat-icon><i class="fas fa-tasks"></i></mat-icon>
+              <span>My Orders</span>
+            </a>
+            <ng-container *ngIf="user?.IsAdmin">
+              <a mat-menu-item routerLink="/admin/orders">
+                <mat-icon><i class="fas fa-clipboard-list"></i></mat-icon>
+                <span>Manage Orders</span>
+              </a>
+              <a mat-menu-item routerLink="/admin/products">
+                <mat-icon><i class="fas fa-database"></i></mat-icon>
+                <span>Manage Products</span>
+              </a>
+              <button (click)="logOut()" mat-menu-item>
+                <mat-icon><i class="fas fa-sign-out-alt"></i></mat-icon>
+                <span>Log Out</span>
+              </button>
+            </ng-container>
+          </mat-menu>
+        </ul>
+
       </div>
-      <mat-menu #menu="matMenu" [overlapTrigger]="true" style="z-index: 1031">
-        <a mat-menu-item routerLink="/my/orders">
-          <mat-icon><i class="fas fa-tasks"></i></mat-icon>
-          <span>My Orders</span>
-        </a>
-        <ng-container *ngIf="user?.IsAdmin">
-          <a mat-menu-item routerLink="/admin/orders">
-            <mat-icon><i class="fas fa-clipboard-list"></i></mat-icon>
-            <span>Manage Orders</span>
-          </a>
-          <a mat-menu-item routerLink="/admin/products">
-            <mat-icon><i class="fas fa-database"></i></mat-icon>
-            <span>Manage Products</span>
-          </a>
-          <button (click)="logOut()" mat-menu-item>
-            <mat-icon><i class="fas fa-sign-out-alt"></i></mat-icon>
-            <span>Log Out</span>
-          </button>
-        </ng-container>
-      </mat-menu>
-
-
-
-      <!--
-      <li *ngIf="loginService.isLoggedIn()" ngbDropdown class="nav-item dropdown">
-        <a ngbDropdownToggle class="nav-link dropdown-toggle" role="button" style="color: white;">
-          {{ user.Fullname }}
-        </a>
-        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
-          <ng-container *ngIf="user?.IsAdmin">
-            <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
-            <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
-          </ng-container>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logOut()">Log Out</a>
-        </div>
-      </li> -->
-
-    </ul>
-
-
+    </nav>
   </div>
-</nav>
+</div>
