@@ -1,5 +1,6 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav [mode]="sideNavMode" [opened]="sideNavOpenToggleButton" style="background-color: #ffffff;">
+  <mat-sidenav #sidenav [mode]="sideNavMode" [opened]="sideNavOpenToggleButton" [disableClose]="true"
+    style="background-color: #ffffff;">
     <div>
       <button *ngIf="sideNavOpenToggleButton" mat-icon-button style="margin-top: 12px;"
         (click)="this.sideNavOpenToggleButton = !this.sideNavOpenToggleButton">
