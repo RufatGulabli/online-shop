@@ -20,15 +20,25 @@
   padding: 10px 0 0 0;
 }
 
-.image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-
-}
-
-.image img {
+.success {
+  background: url('/assets/img/tick.png') no-repeat center;
+  background-size: 100px 100px;
   width: 100px;
-  height: auto;
+  height: 100px;
 }
+
+.error {
+  background: url('/assets/img/error.png') no-repeat center;
+  background-size: 100px 100px;
+  height: 100px;
+  width: 100px;
+}
+
+.warning {
+  background: url('/assets/img/warning.png') no-repeat center;
+  background-size: 100px 100px;
+  height: 100px;
+  width: 100px;
+}
+
+

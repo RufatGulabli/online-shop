@@ -6,6 +6,7 @@ import { LoginService } from '../../../services/login.service';
 import { ShoppingCartService } from '../../../services/shopping-card.service';
 import { User } from '../../../shared/model/user';
 import { take } from 'rxjs/operators';
+import { Direction, Directionality } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'bs-navbar',
@@ -16,6 +17,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
 
   user: User;
   count: number;
+  menuPosition: Direction;
   private subscription = new Subscription();
 
   constructor(

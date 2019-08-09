@@ -43,7 +43,7 @@ export class LoginService {
           this.logOut().subscribe();
           this.router.navigate(['/']);
         }
-      }, 10000);
+      }, 2000);
     });
   }
 

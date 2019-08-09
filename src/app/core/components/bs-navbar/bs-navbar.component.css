@@ -1,6 +1,9 @@
 a {
   cursor: pointer;
 }
+.fixed-top {
+  z-index: 999 !important;
+}
 
 .mat-badge-medium.mat-badge-after .mat-badge-content {
   right: -15px !important;
@@ -11,5 +14,17 @@ a {
 
 .badge-container {
   width: 20px;
+}
+
+.home > i:hover {
+  color: #f57c00 !important;
+}
+
+.shop > i:hover {
+  transform: scale(1.5);
+  transition-duration: 500ms;
+}
+.name {
+  cursor: pointer;
 }
 
