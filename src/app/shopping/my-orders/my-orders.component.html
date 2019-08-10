@@ -1,9 +1,9 @@
 <div class="container-flush">
+  <div class="desc-header">
+    <div style="font-size: 30px; margin: 30px 0;">My Orders</div>
+  </div>
   <div class="row">
-    <div class="col-md-6" style="padding: 0 80px;">
-      <div class="header">
-        <div style="font-size: 30px; margin: 30px 0;">My Orders</div>
-      </div>
+    <div class="cont col-md-6 col-sm-12">
       <mat-list class="order-item font-weight-bold" style="padding: 10px 0; border-bottom: 1px solid gray">
         <div class="text-center">No</div>
         <div class="text-center">Date</div>
@@ -25,7 +25,7 @@
         </mat-list>
       </ng-container>
       <ng-container *ngIf="noData">
-        <div class="font-weight-bold text-center m-5" style="min-height: 100px;">
+        <div class="font-weight-bold text-center m-5 col-md-6 col-sm-12" style="min-height: 100px;">
           <div><i class="material-icons" style="font-size: 50px;">
               assignment
             </i></div>
@@ -38,10 +38,9 @@
 
 
     </div>
-    <div class="col-md-6 animated zoomIn" style="padding: 0 40px;" *ngIf="showDescPanel">
-      <div
-        style="padding: 10px; margin: 120px 50px 0; box-shadow: 0 0 2px gray; border-radius: 4px; background-color: ghostwhite;">
-        <div class="desc-header">Purchase Details</div>
+    <div class="col-md-6 col-sm-12 animated zoomIn" *ngIf="showDescPanel">
+      <div class="details-bar">
+        <div style="margin: 10px 0; font-size: 20px; text-align: center; font-weight: bold;">Purchase Details</div>
         <div class="scrollable">
           <div *ngFor="let item of orderDetails">
             <div class="description-container">

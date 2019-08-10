@@ -1,6 +1,6 @@
-<div class="container" style="margin-top: 50px;">
+<div class="container">
   <div class="row shadow-lg rounded" style="background-color: white">
-    <div class="col-md-7 col-sm-12 p-5">
+    <div class="col-md-7 col-sm-12 form-wrapper">
       <form novalidate [(formGroup)]="productForm" #f="ngForm" (ngSubmit)="onSubmit()">
         <div class="input-container">
           <div *ngIf="message" class="alert alert-success">

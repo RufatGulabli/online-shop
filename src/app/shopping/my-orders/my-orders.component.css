@@ -29,12 +29,50 @@
 
 .desc-header {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   font-size: 28px;
-  padding: 20px;
+  padding: 0 60px;
+}
+.cont {
+  padding: 0 80px;
+}
+.details-bar {
+  padding: 10px 20px;
+  margin: 40px 50px 0;
+  box-shadow: 0 0 2px gray;
+  border-radius: 4px;
+  background-color: ghostwhite;
 }
 
+
+@media screen and (max-width: 600px){
+  .cont {
+    padding: 0;
+    margin: 0 20px;
+  }
+  .details-bar {
+    margin: 10px;
+  }
+  .desc-header {
+    padding: 0 5px;
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px){
+  .cont {
+    padding: 0;
+    margin: 0 20px;
+  }
+  .details-bar {
+    margin: 10px;
+  }
+  .desc-header {
+    padding: 0 5px;
+    font-size: 20px;
+  }
+}
 
 /* width */
 ::-webkit-scrollbar {

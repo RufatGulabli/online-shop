@@ -2,6 +2,32 @@
   width: 100%;
 }
 
+.container {
+  margin-top: 50px;
+}
+
 img {
   max-height: 400px;
+}
+
+.form-wrapper {
+  padding: 48px;
+}
+
+@media screen and (max-width: 600px){
+  .container {
+    margin-top: -7px;
+  }
+  .form-wrapper {
+    padding: 20px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px){
+  .container {
+    margin-top: -7px;
+  }
+  .form-wrapper {
+    padding: 20px;
+  }
 }

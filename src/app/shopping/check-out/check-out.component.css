@@ -28,6 +28,18 @@
   max-height: 18rem;
 }
 
+@media screen and (max-width: 600px){
+  .example-card {
+    margin-top: 5px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px){
+  .example-card {
+    margin-top: 5px;
+  }
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 6px;
