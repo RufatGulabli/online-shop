@@ -1,16 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { OrderService } from '../../services/order.service';
-import { LoginService } from '../../services/login.service';
-import moment from 'moment';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { OrderService } from "../../services/order.service";
+import { LoginService } from "../../services/login.service";
+import moment from "moment";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-my-orders',
-  templateUrl: './my-orders.component.html',
-  styleUrls: ['./my-orders.component.css']
+  selector: "app-my-orders",
+  templateUrl: "./my-orders.component.html",
+  styleUrls: ["./my-orders.component.css"]
 })
 export class MyOrdersComponent implements OnInit, OnDestroy {
-
   orders: any[];
   orderDetails: any[];
   showDescPanel = false;
@@ -21,7 +20,7 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
   constructor(
     private loginService: LoginService,
     private orderService: OrderService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.subscription.add(
@@ -32,10 +31,12 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
           }
           this.orders = orders;
           this.orders.forEach(order => {
-            order.created_on = moment(order.created_on).toDate().toLocaleString();
+            console.log(order);
+            order.created_on = moment(order.created_on).toLocaleString();
           });
         });
-      }));
+      })
+    );
   }
 
   showDescription(orderID) {
@@ -46,11 +47,15 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.showDescPanel = true;
         }, 100);
-      }));
+      })
+    );
   }
 
   getLocalDate(date: string) {
-    return moment.utc(date).local().format('ddd, DD MMM YYYY, HH:mm');
+    return moment
+      .utc(date)
+      .local()
+      .format("ddd, DD MMM YYYY, HH:mm");
   }
 
   ngOnDestroy() {
@@ -58,6 +63,4 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-
-
 }

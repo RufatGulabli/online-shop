@@ -5,9 +5,11 @@
         <img mat-card-image [src]="productForm.get('imageUrl').value" alt="" />
       </div>
       <mat-card-content>
-        <mat-card-title>{{ productForm.get('title').value }}</mat-card-title>
+        <mat-card-title>{{ productForm.get("title").value }}</mat-card-title>
         <br />
-        <mat-card-subtitle>{{ productForm.get('price').value | currency: 'USD':'code' }}</mat-card-subtitle>
+        <mat-card-subtitle>{{
+          productForm.get("price").value | currency: "USD":"code"
+        }}</mat-card-subtitle>
       </mat-card-content>
     </mat-card>
   </div>
@@ -23,12 +25,13 @@
         <mat-card-title>{{ product.title }}</mat-card-title>
         <br />
         <mat-card-subtitle>{{
-                  product.price | currency: 'USD':'code'
-                        }}</mat-card-subtitle>
+          product.price | currency: "USD":"code"
+        }}</mat-card-subtitle>
       </mat-card-content>
       <mat-card-actions>
-        <button *ngIf="count === 0" mat-button color="accent" (click)="add()">ADD TO
-          CART</button>
+        <button *ngIf="count === 0" mat-button color="accent" (click)="add()">
+          ADD TO CART
+        </button>
         <div *ngIf="count !== 0" class="action-buttons">
           <button mat-icon-button color="warn" (click)="remove()">
             <mat-icon>remove</mat-icon>
@@ -41,7 +44,6 @@
           </button>
         </div>
       </mat-card-actions>
-
     </mat-card>
   </div>
 </ng-container>

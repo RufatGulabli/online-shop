@@ -1,28 +1,32 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .product-card {
-    margin: 5px;
+  margin: 5px;
 }
 
 img {
-    min-height: 250px;
-    max-height: 250px;
-    height: 250px;
-    min-width: 370px;
-    max-width: 370px;
-    padding: 5px;
+  min-height: 250px;
+  max-height: 250px;
+  height: 250px;
+  min-width: 33.33%;
+  max-width: 100%;
+  padding: 5px;
 }
 
 mat-card {
-    box-shadow: 0px 2px 10px -1px rgba(0, 0, 0, 0.2),
-      0px 1px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 2px 10px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mat-card-title {
+  word-break: break-all;
 }
 
 mat-card-title {
-    font-size: 16px;
-    height: 40px;
+  font-size: 16px;
+  height: 40px;
 }
 
 .action-buttons {
@@ -30,18 +34,16 @@ mat-card-title {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-
 }
 .mat-card-actions .mat-button {
-  margin: 2px 8px;
+  margin: 2.05px 8px;
 }
 
-
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   img {
-    min-height: 150px ;
-    max-height: 150px ;
-    height: 150px ;
+    min-height: 150px;
+    max-height: 150px;
+    height: 150px;
     min-width: 250px;
     max-width: 250px;
   }
